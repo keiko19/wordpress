@@ -30,8 +30,14 @@ a,ins,s,u,del{text-decoration:none}
 sup,sub{vertical-align:baseline}
 ul, ol, menu {  list-style: none;  }
 
+/*.wp_slide_pager{position: absolute;width:100px;margin:0 auto;}*/
+    .wp_slide_pager .prev{position: absolute;left: 50%;top:0;background: url(images/arrow_up_big.png) no-repeat center center;}
+    .wp_slide_pager .next{position: absolute;left: 50%;bottom:0;background: url(images/arrow_down_big.png) no-repeat center center;}
 /*左侧导航 start*/
-footer{position: absolute;bottom:0;left:0;height:100%;}
+footer{position: absolute;bottom:0;left:0;height:100%;width:100%;}
 footer .sidebar-contentWrapper{position:relative;left:0;height:100%;width:200px;}
 footer .sidebar-contentWrapper .social-nav{position:absolute;bottom:0;left: 0}
 footer .banner{position: relative;bottom:0;left: 0;width:100%;}
+footer .banner .wp_intro{overflow:hidden;}
+footer .banner .wp_intro,footer .banner .wp_page_intro{float:left;}
+footer .banner .search{float:right;}

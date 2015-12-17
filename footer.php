@@ -1,9 +1,24 @@
     <footer id="footer">
+        <!--上下翻页 start-->
+        <div class="wp_slide_pager">
+        <div class="wp_slide_pager prev">Scroll to back</div>
+        <div class="wp_slide_pager next">Scroll to know more</div>
+        </div>
+        <!--上下翻页 end /-->
         <!--左侧main nav start-->
         <div class="sidebar-contentWrapper">
             <?php get_sidebar(); ?>
         </div>
         <div class="banner">
+            <!--搜索 start-->
+            <div class="search">
+                <div class="big_seach_icon"></div>
+                <div class="seach_form">
+                    <i class="small_search_icon"></i>
+                    <input value=""/>
+                </div>
+            </div>
+            <!--搜索 end /-->
             <!--博客简介 start-->
             <div class="wp_intro">
                 <dl>
@@ -26,15 +41,6 @@
                 </dl>
             </div>
             <!--文章简介 end /-->
-            <!--搜索 start-->
-            <div class="search">
-                <div class="big_seach_icon"></div>
-                <div class="seach_form">
-                    <i class="small_search_icon"></i>
-                    <input value=""/>
-                </div>
-            </div>
-            <!--搜索 end /-->
         </div>
     </footer>
     <!--<script src="<?php bloginfo('template_directory'); ?>/js/jquery-1.10.2.min.js"></script>-->
