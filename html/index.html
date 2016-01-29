@@ -2,8 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="../iconfont/iconfont.css">
 	<style type="text/css">
 		p{margin:0 0;}
+
 		/*css3vh属性 视口被均分为100单位的vh。高度占满整个窗口就是height: 100vh*/
 		body {height: 100vh;margin:0 0;font: normal 100% Helvetica, Arial, sans-serif;position:relative;}/*字体大小是页面默认大小的100%，即16像素。*/
 		h1 {font-size: 1.5em;}/*然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）*/
@@ -11,12 +13,21 @@
 		img { max-width: 100%;}/*图片的自适应（fluid image）*/
 		.pointer{cursor:pointer;}
 		.top{height:130px;position:relative;}
-		.top .nav{position:absolute;right:40px;top:40px;}
-		.top .mylogo{position:absolute;border:1px solid #87ca95;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px; border-radius:50%;}
+		.top .nav{position:absolute;right:40px;top:40px;font-size:2em;}
+		.top .mylogo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;background:url(../images/logo.png) center center no-repeat;background-size:100%;}
 		.center{width:100vw;position: relative;text-align:center;}
 		.center .prev,.center .next{width:100px;position: absolute;top:50%;transform:translate(0,-50%);text-align:center;}
 		.center .prev{left:0}
 		.center .next{right:0}
+		.center .btn{display:inline-block;height:12px;width:8px;position:absolute;transition-duration:0.5s;}
+		.center .prev .btn{background:url(../images/arrow_left.png);right:30px;}
+		.center .next .btn{background:url(../images/arrow_next.png);left:30px;}
+		.center .btn-txt{opacity:0;transition: opacity 0.9s;line-height:13px;vertical-align:middle;font-size:0.75em;}
+		.center .prev:hover .btn-txt{opacity:1;}
+		.center .next:hover .btn-txt{opacity:1;}
+		.center .prev:hover .btn{right:80px;}
+		.center .next:hover .btn{left:80px;}
+
 		.center .image{margin:0 80px;position:relative;}
 		.center .image .mask{position:absolute;width:100%;height:100%;background-color:#fff;opacity:0;z-index:1;transition: opacity 1s;}
 		.center .image .picnum{width:40px;height:40px;border-radius:5px;padding:3px;position:absolute;bottom:10px;right:10px;background-color:#fff;opacity:0.8;color:#666;vertical-align:middle;text-align:center;line-height:40px;}
@@ -36,17 +47,29 @@
 		.thunm{position:absolute;display:none;z-index:5;height:100%;width:100%;left:0;top:0;}
 		.thunm .main-mask{opacity:0.3;width:100%;height:100%;background-color:#000;}
 		.thunm .nav-list{position:absolute;right:0;top:0;width:35vw;height:100%;background-color:#000;}
+
+		@media only screen and (-webkit-min-device-pixel-ratio: 2),
+		only screen and (min--moz-device-pixel-ratio: 2),
+		only screen and (-o-min-device-pixel-ratio: 2/1),
+		only screen and (min-device-pixel-ratio: 2) {
+			.top .mylogo{
+			 background:url(../images/logo@2x.png) no-repeat;
+			 background-size:100%;
+			}
+			.center .prev .btn{background:url(../images/arrow_left@2x.png);background-size:100%;}
+			.center .next .btn{background:url(../images/arrow_next@2x.png);background-size:100%;}
+		}
 	</style>
 </head>
 <body>
 	<div class="body">
 			<div class="top">
 		<div class="mylogo pointer"></div>
-		<div class="nav pointer">导航</div>
+		<div class="nav pointer iconfont">&#xe603;</div>
 	</div>
 	<div class="center">
-		<div class="prev pointer">prev</div>
-		<div class="next pointer">next</div>
+		<div class="prev pointer"><span class="btn"></span><span class="btn-txt">PREV</span></div>
+		<div class="next pointer"><span class="btn"></span><span class="btn-txt">NEXT</span></div>
 		<div class="image">
 			<div class="mask"></div>
 			<div class="picnum">15P</div>
