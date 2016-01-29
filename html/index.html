@@ -5,7 +5,7 @@
 	<style type="text/css">
 		p{margin:0 0;}
 		/*css3vh属性 视口被均分为100单位的vh。高度占满整个窗口就是height: 100vh*/
-		body {height: 100vh;margin:0 0;font: normal 100% Helvetica, Arial, sans-serif;}/*字体大小是页面默认大小的100%，即16像素。*/
+		body {height: 100vh;margin:0 0;font: normal 100% Helvetica, Arial, sans-serif;position:relative;}/*字体大小是页面默认大小的100%，即16像素。*/
 		h1 {font-size: 1.5em;}/*然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）*/
 		small {font-size: 0.875em;}/*small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）。*/
 		img { max-width: 100%;}/*图片的自适应（fluid image）*/
@@ -28,13 +28,19 @@
 		.bottom .brief{float:right;width:60%;font-size:0.875em;line-height:1.75em;}
 		.bottom .info{float:left;width:40%;}
 		.bottom .info .title{margin-bottom:0.75em;font-size:1.25em;}
-		.bottom .info .time{display:inline-block;font-size:0.8em;border-radius:4px;border:1px solid #424242;overflow:hidden;}
+		.bottom .info .time{display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;}
 		.bottom .info .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
 		.bottom .info .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:0.8em;}
+
+		.body{position:relative;z-index:4;}
+		.thunm{position:absolute;display:none;z-index:5;height:100%;width:100%;left:0;top:0;}
+		.thunm .main-mask{opacity:0.3;width:100%;height:100%;background-color:#000;}
+		.thunm .nav-list{position:absolute;right:0;top:0;width:35vw;height:100%;background-color:#000;}
 	</style>
 </head>
 <body>
-	<div class="top">
+	<div class="body">
+			<div class="top">
 		<div class="mylogo pointer"></div>
 		<div class="nav pointer">导航</div>
 	</div>
@@ -61,6 +67,11 @@
 		</div>
 	</div>
 	<!-- 导航 start -->
+	<div class="thunm">
+		<div class="main-mask"></div>
+		<div class="nav-list"></div>
+	</div>
 	<!-- 导航 end -->
+	</div>
 </body>
 </html>
