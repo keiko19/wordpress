@@ -5,7 +5,42 @@
 	<link rel="stylesheet" href="../iconfont/iconfont.css">
 	<style type="text/css">
 		p{margin:0 0;}
+		/** 清除内外边距 **/
+		body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+		dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+		pre, /* text formatting elements 文本格式元素 */
+		form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+		th, td /* table elements 表格元素 */ {
+		  margin: 0;
+		  padding: 0;
+		}
 
+		/** 设置默认字体 **/
+		body,
+		button, input, select, textarea /* for ie */ {
+		  font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
+		}
+		h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+		address, cite, dfn, em, var { font-style: normal; } /* 将斜体扶正 */
+		code, kbd, pre, samp { font-family: courier new, courier, monospace; } /* 统一等宽字体 */
+		small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+		/** 重置列表元素 **/
+		ul, ol { list-style: none; }
+
+		/** 重置文本格式元素 **/
+		a { text-decoration: none; }
+		a:hover { text-decoration: underline; }
+
+
+		/** 重置表单元素 **/
+		legend { color: #000; } /* for ie6 */
+		fieldset, img { border: 0; } /* img 搭车：让链接里的 img 无边框 */
+		button, input, select, textarea { font-size: 100%; } /* 使得表单元素在 ie 下能继承字体大小 */
+		/* 注：optgroup 无法扶正 */
+
+		/** 重置表格元素 **/
+		table { border-collapse: collapse; border-spacing: 0; }
 		/*css3vh属性 视口被均分为100单位的vh。高度占满整个窗口就是height: 100vh*/
 		body {height: 100vh;margin:0 0;font: normal 100% Helvetica, Arial, sans-serif;position:relative;}/*字体大小是页面默认大小的100%，即16像素。*/
 		h1 {font-size: 1.5em;}/*然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）*/
@@ -22,8 +57,8 @@
 		.center .prev{left:0}
 		.center .next{right:0}
 		.center .btn{display:inline-block;height:12px;width:8px;position:absolute;transition-duration:0.5s;}
-		.center .prev .btn{background:url(../images/arrow_left.png);right:30px;}
-		.center .next .btn{background:url(../images/arrow_next.png);left:30px;}
+		.center .prev .btn{background:url(../images/arrow_left.png) center center no-repeat;;right:30px;}
+		.center .next .btn{background:url(../images/arrow_next.png) center center no-repeat;;left:30px;}
 		.center .btn-txt{opacity:0;transition: opacity 0.9s;line-height:13px;vertical-align:middle;font-size:0.75em;}
 		.center .prev:hover .btn-txt{opacity:1;}
 		.center .next:hover .btn-txt{opacity:1;}
@@ -48,6 +83,16 @@
 		.thunm{position:absolute;z-index:5;height:100%;width:100%;left:0;top:0;}
 		.thunm .main-mask{opacity:0.3;width:100%;height:100%;background-color:#000;}
 		.thunm .nav-list{position:absolute;right:0;top:0;width:35vw;height:100%;background-color:#000;}
+		.thunm .nav-list .close{position:absolute;top:0;right:0;font-size:2em;background-color:#fff;width:80px;height:80px;vertical-align:middle;line-height:80px;text-align:center;color:#000;}
+		.thunm .nav-list .social,.thunm .nav-list .thumb-list{position:absolute;left:100px;color:#fff;}
+		.thunm .nav-list .social li,.thunm .nav-list .thumb-list li{margin:20px 0;cursor:pointer;}
+		.thunm .nav-list .social{top:240px;}
+		.thunm .nav-list .thumb-list{bottom:240px;}
+		.thunm .nav-list .social .search{height:56px;width:56px;border-radius:28px;background-color:#333;margin-bottom:40px;margin-left:-5px;}
+		.thunm .nav-list .social .search input{height:46px;padding:5px 0;border:none;background-color:#333;color:#fff;font-size:1em;outline: none;width:0;}
+		.thunm .nav-list .social .search:hover{width:316px;transition: width 0.5s;}
+		.thunm .nav-list .social .search:hover input{width:230px;transition: width 0.5s;}
+		.thunm .nav-list .social .search .magnifier{display:inline-block;float:left;height:56px;width:56px;text-align:center;vertical-align:middle;line-height:56px;font-size:1.8em;}
 
 		@media only screen and (-webkit-min-device-pixel-ratio: 2),
 		only screen and (min--moz-device-pixel-ratio: 2),
@@ -91,10 +136,28 @@
 		</div>
 	</div>
 	<!-- 导航 start -->
-<!-- 	<div class="thunm">
+	<div class="thunm">
 		<div class="main-mask"></div>
-		<div class="nav-list"></div>
-	</div> -->
+		<div class="nav-list">
+			<div class="close iconfont pointer">&#xe605</div>
+			<div class="social">
+				<div class="search">
+					<i class="magnifier iconfont pointer">&#xe600;</i>
+					<input name="key"/>
+				</div>
+				<ul class="list">
+					<li>ABOUT</li>
+					<li>LINKS</li>
+					<li>ACTIVITY</li>
+				</ul>
+			</div>
+			<ul class="thumb-list">
+				<li>DIARY</li>
+				<li>LINKS</li>
+				<li>ACTIVITY</li>
+			</ul>
+		</div>
+	</div>
 	<!-- 导航 end -->
 	</div>
 </body>
