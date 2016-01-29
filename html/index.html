@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style type="text/css">
+		/*css3vh属性 视口被均分为100单位的vh。高度占满整个窗口就是height: 100vh*/
+		body {height: 100vh;margin:0 0;font: normal 100% Helvetica, Arial, sans-serif;}/*字体大小是页面默认大小的100%，即16像素。*/
+		h1 {font-size: 1.5em;}/*然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）*/
+		small {font-size: 0.875em;}/*small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）。*/
+		img { max-width: 100%;}/*图片的自适应（fluid image）*/
+		.pointer{cursor:pointer;}
+		.top{height:120px;position:relative;}
+		.top .nav{position:absolute;right:2vw;top:2vh;}
+		.top .mylogo{position:absolute;border:1px solid #87ca95;top:50%;left:50%;transform:translate(-50%,-50%);width:8vh;height:8vh; border-radius:50%;}
+		.center{width:100vw;position: relative;text-align:center;}
+		.center .prev,.center .next{max-width:160px;width:8vw;position: absolute;top:50%;transform:translate(0,-50%);text-align:center;}
+		.center .prev{left:0}
+		.center .next{right:0}
+		.center .image{padding:0 80px;}
+		.center .image img{margin:0 auto;width:100%;}
+		.center .image .enter{position:absolute;background-color:#fff;top:50%;left:50%;transform:translate(-50%,-50%);width:10vh;height:10vh; border-radius:50%;opacity:0.8;text-align:center;vertical-align:center;}
+		.bottom{overflow:hidden;padding:0 80px;}
+		.bottom .brief{float:right;width:60%;}
+		.bottom .info{float:left;width:40%;}
+		.bottom .info .time{display:inline-block;font-size:0.8em;border-radius:4px;border:1px solid #424242;overflow:hidden;}
+		.bottom .info .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
+		.bottom .info .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:0.8em;}
+	</style>
+</head>
+<body>
+	<div class="top">
+		<div class="mylogo pointer"></div>
+		<div class="nav pointer">导航</div>
+	</div>
+	<div class="center">
+		<div class="prev pointer">prev</div>
+		<div class="next pointer">next</div>
+		<div class="image">
+			<img src="lala.jpg">
+			<div class="enter pointer"></div>
+		</div>
+	</div>
+	<div class="bottom">
+		<div class="brief">
+			酒店宽敞客房的宽大窗户高出新宿区热闹的街道，可欣赏到富士山或新宿区的美景。内部拥有室内游泳池和一家位于52层的餐厅。酒店的客房拥有北海道木镶板和埃及棉床单。宾客能在吧台品尝美酒，在深深的浴缸放松身心，或穿着松软的浴衣欣赏点播电影。新宿中央公园距离酒店有3分钟步行路程。J R新宿火车站距离..
+		</div>
+		<div class="info">
+			<p class="title">Sri Lank</p>
+			<div class="time">
+				<div class="year">15</div>
+				<div class="date">12/13</div>
+			</div>
+		</div>
+	</div>
+	<!-- 导航 start -->
+	<!-- 导航 end -->
+</body>
+</html>
