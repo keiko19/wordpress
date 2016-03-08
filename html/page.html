@@ -4,149 +4,178 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="../iconfont/iconfont.css">
 	<style type="text/css">
+		input, textarea {border: none;resize : none;outline:none;}
 		.pointer{cursor:pointer;}
-		.back{position:fixed;height:100vh;width:100px;}
+		.back{position:fixed;height:100%;width:100px;}
 		.back .wrap{position:absolute;top:50%;transform:translate(0,-50%);width:100%;text-align:center;}
 		.back .wrap .btn{display:inline-block;height:12px;width:8px;right:20px;position:absolute;transition-duration:0.5s;background:url(../images/arrow_left.png) center center no-repeat;}
 		.back .wrap .btn-txt{opacity:0;transition: opacity 0.9s;line-height:13px;vertical-align:middle;font-size:0.85em;}
 		.back:hover .btn-txt{opacity:1;}
 		.back:hover .btn{right:70px;}
 
-		.main{padding:0 100px;}
+		.main{margin-left:100px;overflow-x:hidden;height:100%;}
 		.main .top{overflow:hidden;padding:20px 0;}
 		.main .top .time{float:left;display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;}
 		.main .top .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
 		.main .top .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:0.8em;}
-		.main .top .artical-info{float:left;}
+		.main .top .artical-info{float:left;padding-left:15px;}
 		.main .top .right-social{float:right;}
-		.main .top .right-social .share{}
+		.main .top .right-social .share{color:#666;}
 		.main .top .right-social .prev,.main .top .right-social .next{display:inline-block;height:12px;width:8px;}
 		.main .top .right-social .prev{background:url(../images/arrow_left.png) center center no-repeat;}
 		.main .top .right-social .next{background:url(../images/arrow_next.png) center center no-repeat;}
 
-		.pg-artical{overflow:hidden;}
-		.pg-artical .artical-img img{width:100%;}
 		.artical{margin-right:300px;}
+		.artical::-webkit-scrollbar {
+	        width:0;
+	        height:0;
+	    }
+	    .artical::-webkit-scrollbar-button    {
+	        background-color:#fff;
+	    }
 
-		.comments-wrapper{position: relative;padding-bottom: 50px;}
-		.article-comments{float:right;overflow:hidden;width: 280px;}
-		.article-comments .close{float:right;font-size:0.75em;background-color:#fff;text-align:center;color:#000;}
+		.artical .artical-img{margin-bottom:20px;}
+		.artical .artical-img img{width:100%;}
+		.artical-content{height:100%;}
+
+		.comments{position:fixed;overflow:hidden;right:0;width:300px;font-size:0.75em;height:100%;background-color:#fff;}
+		.comments .comments-title{margin-bottom: 20px;text-transform: uppercase;padding:0 20px;}
+
+		.comments-wrapper{padding:0 20px;position: relative;padding-bottom: 50px;}
 		.comments-wrapper .comments-list{overflow-y: auto;overflow-x: hidden;}
-		.comments-wrapper .comments-list li{margin-bottom: 10px;}
-		.comments-wrapper .comments-list .comment-author{padding: 5px 10px 0 10px;color: #AAA;background: white;}
+		.comments-wrapper .comments-list li{border-bottom:1px solid #e3e3e3;margin-top:10px;}
+		.comments-wrapper .comments-list .comment-author{padding-top: 5px;color: #AAA;background: white;}
 		.comments-wrapper .comments-list .comment-author a{color:#999;}
 		.comments-wrapper .comments-list .reply{float: right;}
-		.comments-wrapper .comments-list .comment-c {padding:10px; background:white;}
+		.comments-wrapper .comments-list .comment-c {padding:10px 0;}
 		.comments-wrapper .comments-list .comment-c a {color:#999;}
 		.comments-wrapper .comments-list .comment-c a:hover {color:#ccc;}
-		.comments-wrapper .comment-reply {padding:10px; background:white;}
-		.comments-wrapper .comment-child {border-top:1px solid #EEE;}
-		.comments-wrapper .comment-post {position:absolute; left:0; bottom:10px;width:100%;background-color:#F2F2F2;}
-		.comments-wrapper .comment-post-wrapper {display:none;}
-		.comments-wrapper .comment-post h3 {padding:10px; font-size:14px;}
-		.comments-wrapper .comment-post .close-comment {float:right; color:#999; font-size:16px; font-weight:bold;}
-		.comments-wrapper .comment-post .close-comment:hover {color:black;}
-		.comments-wrapper .comment-post .comment-input {padding:0 10px; margin-bottom:10px; overflow:hidden;}
-		.comments-wrapper .comment-post .comment-input input {padding:6px; width:248px;}
-		.comments-wrapper .comment-post .comment-input textarea {padding:6px; width:248px; height:60px; max-width:248px; max-height:60px;}
-		.comments-wrapper .comment-post .comment-submit {height:40px; overflow:hidden;}
-		.comments-wrapper .comment-post .comment-submit input {width:100%; height:40px; line-height:40px; text-align:center; color:white; background:#333; font-size:14px; cursor:pointer;}
-		.comments-wrapper .comment-post .comment-submit input:hover {background:#444;}
-		.comments-wrapper .comment-post .comment-submit input:active {background:#222;}
-		.comments-wrapper .comment-post .comment-author {padding:5px 10px 0 10px; color:#AAA; background:white;}
-		.comments-wrapper .comment-post .comment-author span {color:black;}
-		.comments-wrapper .comment-post .comment-author a {color:#999;}
-		.comments-wrapper .comment-post .comment-author a:hover {color:#333;}	
-
-
+		.comments .comment-reply {}
+		.comments .comment-post {position:absolute; right:0; bottom:0;width:100%;background-color:#fff;}
+		.comments .comment-post-wrapper {padding:0 20px;}
+		.comments .comment-post textarea {width:100%;border-bottom:1px solid #e3e3e3;margin-top:20px;}
+		.comments .comment-post .comment-submit {height:40px; overflow:hidden;float:right;margin-top:10px;}
+		.comments .comment-post .comment-submit input {width:40px; height:20px; line-height:20px; text-align:center; color:white; background:#333; font-size:14px; cursor:pointer;}
+		.comments .comment-post .comment-submit input:hover {background:#444;}
+		.comments .comment-post .comment-submit input:active {background:#222;}
 		@media only screen and (-webkit-min-device-pixel-ratio: 2),
 		only screen and (min--moz-device-pixel-ratio: 2),
 		only screen and (-o-min-device-pixel-ratio: 2/1),
 		only screen and (min-device-pixel-ratio: 2) {
 			.main .top .right-social .prev{background:url(../images/arrow_left@2x.png);background-size:100%;}
 			.main .top .right-social .next{background:url(../images/arrow_next@2x.png);background-size:100%;}
+			.back .wrap .btn{background:url(../images/arrow_left@2x.png);background-size:100%;}
 		}
 	</style>
 </head>
 <body>
-		<div class="back pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">BACK</span></div></div>
+	<div class="back pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">BACK</span></div></div>
 	<div class="main">
-		<div class="top">
-			<div class="right-social">
-				<i class="share iconfont pointer">&#xe601;</i>
-				<i class="prev pointer"></i>
-				<i class="next pointer"></i>
+			<div class="comments">
+				<div class="top">
+					<div class="right-social">
+						<i class="share iconfont pointer">&#xe601;</i>
+						<i class="prev pointer"></i>
+						<i class="next pointer"></i>
+					</div>
+				</div>
+				<div class="comments-title">Comments（7)</div>
+				<div class="comments-wrapper">
+					<ul class="comments-list">
+						<li id="comment_5799" data-user="威客">
+							<div class="comment-author">
+								<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
+								<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
+							</div>
+							<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
+							<div class="comment-reply"></div>
+						</li>
+						<li id="comment_5799" data-user="威客">
+							<div class="comment-author">
+								<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
+								<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
+							</div>
+							<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
+							<div class="comment-reply"></div>
+						</li>
+						<li id="comment_5799" data-user="威客">
+						<div class="comment-author">
+							<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
+							<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
+						</div>
+						<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
+						<div class="comment-reply"></div>
+					</li>
+						<li id="comment_5799" data-user="威客">
+							<div class="comment-author">
+								<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
+								<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
+							</div>
+							<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
+							<div class="comment-reply"></div>
+						</li>
+						<li id="comment_5799" data-user="威客">
+							<div class="comment-author">
+								<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
+								<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
+							</div>
+							<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
+							<div class="comment-reply"></div>
+						</li>
+						<li id="comment_5799" data-user="威客">
+							<div class="comment-author">
+								<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
+								<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
+							</div>
+							<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
+							<div class="comment-reply"></div>
+						</li>
+						<li id="comment_5799" data-user="威客">
+							<div class="comment-author">
+								<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
+								<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
+							</div>
+							<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
+							<div class="comment-reply"></div>
+						</li>
+						<li id="comment_5799" data-user="威客">
+							<div class="comment-author">
+								<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
+								<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
+							</div>
+							<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
+							<div class="comment-reply"></div>
+						</li>
+					</ul>
+				</div>
+				<div class="comment-post">
+					<div class="comment-post-wrapper">
+						<form>
+							<div><textarea placeholder="YOUR NAME"></textarea></div>
+							<div><textarea placeholder="WRITE HERE"></textarea></div>
+							<div class="comment-submit">
+								<input type="submit" class="post-comment" value="POST">
+							</div>
+					</form>
+					</div>
+				</div>
 			</div>
-			<div class="time">
-				<div class="year">15</div>
-				<div class="date">12/13</div>
+			<div class="artical">
+				<div class="top">
+					<div class="time">
+						<div class="year">15</div>
+						<div class="date">12/13</div>
+					</div>
+					<div class="artical-info">
+						<h3 class="title">终年走了一沙漠</h3>
+						<div class="classify">PHOTO</div>
+					</div>
+				</div>
+				<div class="artical-content">
+					<div class="artical-img"><img class="main-img" src="lala.jpg"></div>
+					<p class="enter pointer">原本计划国庆假期去日本旅游，结果女友有事，我就只能和基友们在北京周边转悠，想来想去能转悠的地方也就只有坝上了，于是今年第二次去了内蒙坝上。虽然北京才进入初秋，树叶都还没有开始黄，而十月的坝上早已是一幅深秋的荒凉，下次还是得中秋时节去啊。</p>
+				</div>
 			</div>
-			<div class="artical-info">
-				<h3 class="title">终年走了一沙漠</h3>
-				<div class="classify">PHOTO</div>
-			</div>
-		</div>
-		<div class="pg-artical">
-			<div class="article-comments">
-	                <div class="comments-title"><a href="javascript:void(0);" class="close iconfont pointer">&#xe605</a><span>Comments（7）</span></div>
-	                <div class="comments-wrapper">
-	                	<ul class="comments-list">
-	                		<li id="comment_5799" data-user="威客">
-	                			<div class="comment-author">
-	                				<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
-	                				<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
-	                			</div>
-	                			<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
-								<div class="comment-reply"></div>
-							</li>
-	                		<li id="comment_5799" data-user="威客">
-	                			<div class="comment-author">
-	                				<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
-	                				<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
-	                			</div>
-	                			<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
-								<div class="comment-reply"></div>
-							</li>
-	                		<li id="comment_5799" data-user="威客">
-	                			<div class="comment-author">
-	                				<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>
-	                				<a href="http://www.renwuyi.com" target="_blank" rel="nofollow">威客</a>(2014-12-22)
-	                			</div>
-	                			<div class="comment-c"><p>照片很给力，看了之后很心动，也想出去玩了</p></div>
-								<div class="comment-reply"></div>
-							</li>												
-	                	</ul>
-	                	<div class="comment-post">
-	                        <div class="comment-post-wrapper">
-	                            <h3><a href="javascript:;" class="close-comment iconfont" title="关闭">&#xe605</a>发表评论</h3>
-	                            <div class="comment-user">
-	                                <span class="comment-user-info"></span>
-	                                <div class="comment-input">
-	                                    <input type="text" id="com_name" placeholder="怎么称呼？">
-	                                </div>
-	                                <div class="comment-input">
-	                                    <input type="url" id="com_email" placeholder="Email不会被公开，放心吧！">
-	                                </div>
-	                                <div class="comment-input">
-	                                    <input type="url" id="com_url" placeholder="有网站么？当然，你也可以不填">
-	                                </div>
-	                            </div>
-	                            <div class="comment-input">
-	                                <textarea id="com_content" placeholder="说点儿什么吧？"></textarea>
-	                            </div>
-	                            <input type="hidden" id="parent_id" value="">
-	                        </div>
-	                        <div class="comment-submit">
-	                            <input type="submit" class="post-comment" value="发表评论">
-	                        </div>
-                    	</div>
-	                </div>
-	        </div>
-	        <div class="artical">
-	        	<div class="artical-img"><img class="main-img" src="lala.jpg"></div>
-				<p class="enter pointer">原本计划国庆假期去日本旅游，结果女友有事，我就只能和基友们在北京周边转悠，想来想去能转悠的地方也就只有坝上了，于是今年第二次去了内蒙坝上。虽然北京才进入初秋，树叶都还没有开始黄，而十月的坝上早已是一幅深秋的荒凉，下次还是得中秋时节去啊。</p>
-	        </div>
-		</div>
 	</div>
 </body>
 </html>

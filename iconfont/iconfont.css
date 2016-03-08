@@ -1,0 +1,65 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot'); /* IE9*/
+  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-sousuo:before { content: "\e600"; }
+.icon-fenxiang:before { content: "\e601"; }
+.icon-youjianhuifu:before { content: "\e602"; }
+.icon-menu-2:before { content: "\e603"; }
+.icon-guanbi:before { content: "\e604"; }
+.icon-gaunbi:before { content: "\e605"; }
+
+  p{margin:0 0;}
+  /** 清除内外边距 **/
+  body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+  dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+  pre, /* text formatting elements 文本格式元素 */
+  form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+  th, td /* table elements 表格元素 */ {
+    margin: 0;
+    padding: 0;
+  }
+
+  /** 设置默认字体 **/
+  body,
+  button, input, select, textarea /* for ie */ {
+    font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+  address, cite, dfn, em, var { font-style: normal; } /* 将斜体扶正 */
+  code, kbd, pre, samp { font-family: courier new, courier, monospace; } /* 统一等宽字体 */
+  small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+  /** 重置列表元素 **/
+  ul, ol { list-style: none; }
+
+  /** 重置文本格式元素 **/
+  a { text-decoration: none; }
+  a:hover { text-decoration: none; }
+
+
+  /** 重置表单元素 **/
+  legend { color: #000; } /* for ie6 */
+  fieldset, img { border: 0; } /* img 搭车：让链接里的 img 无边框 */
+  button, input, select, textarea { font-size: 100%; } /* 使得表单元素在 ie 下能继承字体大小 */
+  /* 注：optgroup 无法扶正 */
+
+  /** 重置表格元素 **/
+  table { border-collapse: collapse; border-spacing: 0; }
+  /*css3vh属性 视口被均分为100单位的vh。高度占满整个窗口就是height: 100vh*/
+  body {height: 100vh;margin:0 0;font: normal 100% Helvetica, Arial, sans-serif;position:relative;}/*字体大小是页面默认大小的100%，即16像素。*/
+  h1 {font-size: 1.5em;}/*然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）*/
+  small {font-size: 0.875em;}/*small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）。*/
+  img { max-width: 100%;}/*图片的自适应（fluid image）*/
