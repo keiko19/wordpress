@@ -45,7 +45,7 @@ function template(source,data){
     return render(source,data);
 }
 
-var INDEX = 2; //默认从几开始渲染首页
+var INDEX = 0; //默认从几开始渲染首页
 var postResult = []
 //解析url
 function initPage(){
@@ -99,6 +99,19 @@ function fetchData(json){
     });
 }
 
+function getMorePosts(){
+    fetchData({
+        url : "/wordpress/?json=get_recent_posts",
+        data : {page:1,count:INDEX+2}
+    }).then(function(result){
+        if (result.posts && result.posts.length != 0) {
+            postResult = result.posts;
+            console.log(postResult)
+            renderBtns();
+        }
+    });
+}
+
 function formatHomeData(current){
     var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
     return {
@@ -122,7 +135,6 @@ function renderHomePage() {
     setTimeout(function () {
         window.scrollTo(window._x,window._y);
     },1)
-
 }
 
 function renderBtns(){
@@ -138,9 +150,9 @@ function bindEvent(){
         window._y = window.scrollY;
         window._x = window.scrollX;
         ++INDEX;
+        getMorePosts();
         if(INDEX >=0 && typeof postResult[INDEX] !== "undefined"){
             renderHomePage();
-            renderBtns();
         }
     }).delegate('.js-prev', 'click', function(e){
         window._y = window.scrollY;
