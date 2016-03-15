@@ -2,14 +2,14 @@
 <div class="body">
     <div class="top">
         <div class="mylogo pointer"></div>
-        <div class="nav pointer iconfont">&#xe603;</div>
+        <div class="nav pointer iconfont js-nav">&#xe603;</div>
     </div>
     <div id="container"></div>
     <!-- 导航 start -->
-    <div class="thunm">
+    <div class="thunm js-thumb">
         <div class="main-mask"></div>
         <div class="nav-list">
-            <div class="close iconfont pointer">&#xe605</div>
+            <div class="close js-close iconfont pointer">&#xe605</div>
             <div class="social">
                 <div class="search">
                     <i class="magnifier iconfont pointer">&#xe600;</i>
