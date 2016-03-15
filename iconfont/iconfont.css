@@ -78,8 +78,7 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
 .center .prev .btn{background:url(../images/arrow_left.png) center center no-repeat;right:20px;}
 .center .next .btn{background:url(../images/arrow_next.png) center center no-repeat;left:20px;}
 .center .btn-txt{opacity:0;transition: opacity 0.9s;line-height:13px;vertical-align:middle;font-size:0.85em;}
-.center .prev:hover .btn-txt{opacity:1;}
-.center .next:hover .btn-txt{opacity:1;}
+.center .prev:hover .btn-txt,.center .next:hover .btn-txt{opacity:1;}
 .center .prev:hover .btn{right:70px;}
 .center .next:hover .btn{left:70px;}
 

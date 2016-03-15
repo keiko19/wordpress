@@ -1,7 +1,4 @@
-var tpl = ['<div class="center">',
-    '{{#prev}}<div class="prev pointer js-prev" data-id=""><div class="wrap"><span class="btn"></span><span class="btn-txt">PREV</span></div></div>{{/prev}}',
-    '{{#next}}<div class="next pointer js-next"><div class="wrap"><span class="btn"></span><span class="btn-txt">NEXT</span></div></div>{{/next}}',
-    '<div class="image">',
+var tpl = ['<div class="image">',
     '<div class="mask"></div>',
     '<div class="picnum">{{picnum}}P</div>',
     '<img class="main-img" src="{{attachmentsUrl}}">',
@@ -13,7 +10,6 @@ var tpl = ['<div class="center">',
     '<div class="info">',
     '<p class="title">{{title}}</p>',
     '<div class="time"><div class="year">{{year}}</div><div class="date">{{month}}/{{day}}</div></div></div>',
-    '</div>',
     '</div>'].join('');
 
 //var fn = new Function('data','var $out="";if(data.a){$out+="<div>";$out+=data.b;$out+="</div>"}return $out;')
@@ -49,6 +45,9 @@ function template(source,data){
     return render(source,data);
 }
 
+var INDEX = 2; //默认从几开始渲染首页
+var postResult = []
+//解析url
 function initPage(){
     var path = location.pathname;
     var localprefix = 'wordpress',localtest = path.indexOf(localprefix);
@@ -64,10 +63,13 @@ function initPage(){
         if(!slug || path == '/'){
             var recentPost = fetchData({
                 url : "/wordpress/?json=get_recent_posts",
-                data : {page:1,count:3}
+                data : {page:1,count:INDEX+2}
             });
             recentPost.then(function(result){
-                renderHomePage(result);
+                if (result.posts && result.posts.length != 0) {
+                    postResult = result.posts;
+                    renderHomePage();
+                }
             });
         }else{
             fetchData({
@@ -90,7 +92,6 @@ function fetchData(json){
             data : json.data,
             timeout: json.timeout || 30000
         }).done(function (data) {
-            //console.log(data)
             resolve(data);
         }).error(function (err) {
             //reject(err);
@@ -98,17 +99,11 @@ function fetchData(json){
     });
 }
 
-function renderHomePage(result) {
-    if (!result.posts || result.posts.length == 0) {
-        return false;
-    }
-    var posts = result.posts;
-    current = posts[2];
+function formatHomeData(current){
     var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
-
-    var data = {
-        prev: false,
-        next: true,
+    return {
+        prev: INDEX!==0,
+        next: typeof postResult[INDEX+1] !== "undefined",
         title: current.title,
         url: current.url,
         excerpt: current.excerpt,
@@ -117,19 +112,44 @@ function renderHomePage(result) {
         day: d[3],
         attachmentsUrl: current.attachments.length > 0 && current.attachments[0].images.large.url || "",
         picnum: current.attachments.length
-    }
+    };
+}
 
+function renderHomePage() {
+    var current = postResult[INDEX];
+    var data = formatHomeData(current);
     $('#container').html(template(tpl, data));
+    setTimeout(function () {
+        window.scrollTo(window._x,window._y);
+    },1)
+
+}
+
+function renderBtns(){
+    typeof postResult[INDEX+1] == "undefined" ? $('.js-next').hide() :  $('.js-next').show();
+    typeof postResult[INDEX-1] == "undefined" ? $('.js-prev').hide() :  $('.js-prev').show();
 }
 
 function bindEvent(){
-    var panel = $('#container');
+    var panel = $('#panel');
     var nav = $('.js-nav');
     var thumb = $('.js-thumb');
     panel.delegate('.js-next', 'click', function(e){
-        var el = this
+        window._y = window.scrollY;
+        window._x = window.scrollX;
+        ++INDEX;
+        if(INDEX >=0 && typeof postResult[INDEX] !== "undefined"){
+            renderHomePage();
+            renderBtns();
+        }
     }).delegate('.js-prev', 'click', function(e){
-            var el = this
+        window._y = window.scrollY;
+        window._x = window.scrollX;
+        --INDEX;
+        if(INDEX >=0 && typeof postResult[INDEX] !== "undefined"){
+            renderHomePage();
+            renderBtns()
+        }
     });
 
     nav.bind('click', function (e) {
