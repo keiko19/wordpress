@@ -1,3 +1,20 @@
+var tpl = ['<div class="center">',
+    '{{#prev}}<div class="prev pointer {{prev}}"><div class="wrap"><span class="btn"></span><span class="btn-txt">PREV</span></div></div>{{/prev}}',
+    '{{#next}}<div class="next pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">NEXT</span></div></div>{{/next}}',
+    '<div class="image">',
+    '<div class="mask"></div>',
+    '<div class="picnum">{{picnum}}P</div>',
+    '<img class="main-img" src="{{attachmentsUrl}}">',
+    '<div class="enter pointer" data-src="{{url}}"><a class="enter-link" target="_blank" href="{{url}}">enter</a></div>',
+    '</div>',
+    '</div>',
+    '<div class="bottom">',
+    '<div class="brief">{{excerpt}}</div>',
+    '<div class="info">',
+    '<p class="title">{{title}}</p>',
+    '<div class="time"><div class="year">{{year}}</div><div class="date">{{month}}/{{day}}</div></div></div>',
+    '</div>',
+    '</div>'].join('');
 var path = location.pathname;
 var localprefix = 'wordpress',localtest = path.indexOf(localprefix);
 if(localtest !== -1){
@@ -13,7 +30,7 @@ if(/\/category\//.test(path)){
     if(!slug || path == '/'){
         var recentPost = fetchData({
             url : "/wordpress/?json=get_recent_posts",
-            data : {page:1}
+            data : {page:1,count:3}
         });
         recentPost.then(function(result){
             renderHome(result);
@@ -46,46 +63,62 @@ function fetchData(json){
     });
 }
 
-var $title = $('#title');
-var $picnum = $('#picnum');
-var $time = $('#time');
-var $img = $('#mainimg');
-var dataTpl = '<div class="year">{{year}}</div><div class="date">{{month}}/{{day}}</div></div>'
+//var $title = $('#title');
+//var $picnum = $('#picnum');
+//var $time = $('#time');
+//var $img = $('#mainimg');
+//var dataTpl = '<div class="year">{{year}}</div><div class="date">{{month}}/{{day}}</div></div>';
 function renderHome(result){
-    var _c = result.posts && result.posts[0];
-    console.log( $title)
-    if(!_c){
+    if(!result.posts || result.posts.length == 0){
         return false;
     }
-    var date = _c.date,
-        title = _c.title;
-    $title.html(_c.title);
-    $time.html( renderDate(date) );
+    var posts = result.posts;
+        current = posts[2];
+    var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
 
-    var pic = _c.attachments;
-    if(pic && pic.length > 0){
-        $img = pic.url;
+    var data = {
+        prev : false,
+        next : true,
+        title : current.title,
+        url : current.url,
+        excerpt : current.excerpt,
+        year : d[1].slice(2),
+        month:d[2],
+        day:d[3],
+        attachmentsUrl : current.attachments.length >0 && current.attachments[0].images.large.url || "",
+        picnum : current.attachments.length
     }
-}
-function renderDate(date){
-    var d = /(\d*)-(\d*)-(\d*)/.exec(date);
-    var dateObj = {year : d[1].slice(2),month:d[2],day:d[3]}
-    return dateHtml = dataTpl.replace(/\{\{([^\}\}]*)\}\}/g,function(str,match){
-        return dateObj[match];
+
+    $('#container').html( template(tpl,data) );
+    
+//var fn = new Function('data','var $out="";if(data.a){$out+="<div>";$out+=data.b;$out+="</div>"}return $out;')
+var open = "{{";
+var close = "}}";
+function template(source,data){
+    var _fn = "";
+    var header = 'var $out="";';
+    var prefix = "$out+=",end = ";";
+    var footerCode = "return $out;"
+    var variaPrefic = 'data["',variaEdn = '"]'
+    var isLogicStart = /^\#/;
+    var isLogicEnd = /^\//;
+    $(source.split(open)).each(function(index,item){
+        var code = item.split(close);
+        var $0 = code[0],$1 = code[1];
+        if(code.length == 1){
+            _fn+=prefix+"'"+$0+"'"+end;
+        }else{
+            if(isLogicStart.test($0)){
+                _fn+= 'if('+variaPrefic+$0.slice(1)+variaEdn+'){';
+            }else if(isLogicEnd.test($0)){
+                _fn+= "}";
+            }else{
+                _fn+=prefix+variaPrefic+$0+variaEdn+end;
+            }
+            _fn+=prefix+"'"+$1+"'"+end;
+        }
     });
+    var _funcode = (header+_fn+footerCode);
+    var render = new Function('source','data',_funcode);
+    return render(source,data);
 }
-//var articalObj = {
-//    get img(){
-//
-//    },
-//    set img(value){
-//
-//    }
-//};
-//var model = function (opts) {
-//    var options = $.extend({},opts);
-//    this.current = options.current || 1;
-//}
-//model.prototype = {
-//
-//}
