@@ -92,7 +92,7 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
 .center .image .enter-link{display:inline-block;width:100px;height:100px;color:#333;}
 .bottom{overflow:hidden;padding:0 100px;margin-top:30px;}
 .bottom .brief{float:right;width:70%;font-size:0.875em;line-height:1.75em;}
-.bottom .info{float:left;}
+.bottom .info{float:left;text-align:left;}
 .bottom .info .title{margin-bottom:0.75em;font-size:1.25em;}
 .bottom .info .time{display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;}
 .bottom .info .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
