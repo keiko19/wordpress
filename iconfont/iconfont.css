@@ -82,7 +82,7 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
 .center .prev:hover .btn{right:70px;}
 .center .next:hover .btn{left:70px;}
 
-.center .image{margin:0 100px;position:relative;}
+.center .image{margin:0 100px;position:relative;min-height:400px;}
 .center .image .mask{position:absolute;width:100%;height:100%;background-color:#fff;opacity:0;z-index:1;transition: opacity 1s;}
 .center .image .picnum{width:40px;height:40px;border-radius:5px;padding:3px;position:absolute;bottom:10px;right:10px;background-color:#fff;opacity:0.8;color:#666;vertical-align:middle;text-align:center;line-height:40px;}
 .center .image .main-img{margin:0 auto;width:100%;z-index:4;}

@@ -1,4 +1,4 @@
-var tpl = ['<div class="image">',
+var TPL = ['<div class="image">',
     '<div class="mask"></div>',
     '<div class="picnum">{{picnum}}P</div>',
     '<img class="main-img" src="{{attachmentsUrl}}">',
@@ -82,6 +82,34 @@ function initPage(){
     }
 }
 
+function router(url){
+    var _url,_data;
+    //列表页
+    var slug = (/\/([^\/]*)\//).exec(path),
+        type = 'post';
+    if(!slug || path == '/'){
+        _data = {
+            url : "/wordpress/?json=get_recent_posts",
+            data : {page:1,count:INDEX+2}
+        };
+    }else if(slug[1] == 'category'){
+        //category 跳转
+        var catslug = "";
+        _url = "/api/get_category_posts/";
+        _data = {count:INDEX+2, page:1, slug:catslug}
+    }else{
+        _data = {
+            url : "/api/get_"+type+"/",
+            data : {slug:slug[1]}
+        }
+    }
+
+    return {
+        url : _url,
+        data : _data
+    }
+}
+
 function fetchData(json){
     //获取文章信息
     return new Promise(function(resolve,reject){
@@ -131,7 +159,8 @@ function formatHomeData(current){
 function renderHomePage() {
     var current = postResult[INDEX];
     var data = formatHomeData(current);
-    $('#container').html(template(tpl, data));
+    var tpl = template(TPL, data);
+    $('#container').html(tpl);
     setTimeout(function () {
         window.scrollTo(window._x,window._y);
     },1)
