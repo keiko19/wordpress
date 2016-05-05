@@ -162,7 +162,7 @@ function bindEvent(){
     var thumb = $('.js-thumb');
     panel.delegate('.js-next', 'click', function(e){
         var next = INDEX+1;
-        var nextDom = animateDiv.find('.item[data-index="'+next+'"]')
+        var nextDom = animateDiv.find('.item[data-index="'+next+'"]');
         ++INDEX;
         //getMorePosts();
         if(INDEX >=0 && nextDom.length>0){
@@ -182,7 +182,13 @@ function bindEvent(){
         }
     });
 
-    //$(window)
+    $(window).bind('resize',function(){
+        var currentDom = animateDiv.find('.item[data-index="'+INDEX+'"]');
+        if(currentDom.offset().left !== 100){
+            var _x = -getTranslateX(animateDiv) + currentDom.offset().left - 100;
+            translates( animateDiv, 200, -_x);
+        }
+    });
 
     nav.bind('click', function (e) {
         thumb.show();
