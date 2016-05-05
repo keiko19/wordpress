@@ -1,52 +1,20 @@
-var TPL = ['<div class="image">',
+var TPL = ['{{each data as item}}<li class="item" data-index="{{item.index}}"><div class="image">',
     '<div class="mask"></div>',
-    '<div class="picnum">{{picnum}}P</div>',
-    '<img class="main-img" src="{{attachmentsUrl}}">',
-    '<div class="enter pointer" data-src="{{url}}"><a class="enter-link" target="_blank" href="{{url}}">enter</a></div>',
+    '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
+    '<div class="picnum">{{item.picnum}}P</div>',
+    '<img class="main-img" src="{{item.attachmentsUrl}}">',
     '</div>',
     '</div>',
     '<div class="bottom">',
-    '<div class="brief">{{excerpt}}</div>',
+    '<div class="brief">{{item.excerpt}}</div>',
     '<div class="info">',
-    '<p class="title">{{title}}</p>',
-    '<div class="time"><div class="year">{{year}}</div><div class="date">{{month}}/{{day}}</div></div></div>',
-    '</div>'].join('');
-
-//var fn = new Function('data','var $out="";if(data.a){$out+="<div>";$out+=data.b;$out+="</div>"}return $out;')
-//模板渲染方法
-var open = "{{";
-var close = "}}";
-function template(source,data){
-    var _fn = "";
-    var header = 'var $out="";';
-    var prefix = "$out+=",end = ";";
-    var footerCode = "return $out;"
-    var variaPrefic = 'data["',variaEdn = '"]'
-    var isLogicStart = /^\#/;
-    var isLogicEnd = /^\//;
-    $(source.split(open)).each(function(index,item){
-        var code = item.split(close);
-        var $0 = code[0],$1 = code[1];
-        if(code.length == 1){
-            _fn+=prefix+"'"+$0+"'"+end;
-        }else{
-            if(isLogicStart.test($0)){
-                _fn+= 'if('+variaPrefic+$0.slice(1)+variaEdn+'){';
-            }else if(isLogicEnd.test($0)){
-                _fn+= "}";
-            }else{
-                _fn+=prefix+variaPrefic+$0+variaEdn+end;
-            }
-            _fn+=prefix+"'"+$1+"'"+end;
-        }
-    });
-    var _funcode = (header+_fn+footerCode);
-    var render = new Function('source','data',_funcode);
-    return render(source,data);
-}
+    '<p class="title">{{item.title}}</p>',
+    '<div class="time"><div class="year">{{item.year}}</div><div class="date">{{item.month}}/{{item.day}}</div></div></div>',
+    '</div></li>{{/each}}'].join('');
 
 var INDEX = 0; //默认从几开始渲染首页
-var postResult = []
+var postResult = [];
+var eventDispatcher = {};
 //解析url
 function initPage(){
     var path = location.pathname;
@@ -63,12 +31,16 @@ function initPage(){
         if(!slug || path == '/'){
             var recentPost = fetchData({
                 url : "/wordpress/?json=get_recent_posts",
-                data : {page:1,count:INDEX+2}
+                data : {page:1,count:10}
+                //data : {page:1,count:INDEX+2}
             });
             recentPost.then(function(result){
                 if (result.posts && result.posts.length != 0) {
                     postResult = result.posts;
-                    renderHomePage();
+                    var _html = renderHomePage( postResult );
+                    console.log(postResult)
+                    //var _html = renderHomePage( postResult[INDEX] );
+                    $('#container').html( _html );
                 }
             });
         }else{
@@ -134,17 +106,17 @@ function getMorePosts(){
     }).then(function(result){
         if (result.posts && result.posts.length != 0) {
             postResult = result.posts;
-            console.log(postResult)
             renderBtns();
         }
     });
 }
 
-function formatHomeData(current){
+function formatHomeData(current,idx){
     var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
     return {
-        prev: INDEX!==0,
-        next: typeof postResult[INDEX+1] !== "undefined",
+        index : idx,
+        //prev: INDEX!==0,
+        //next: typeof postResult[INDEX+1] !== "undefined",
         title: current.title,
         url: current.url,
         excerpt: current.excerpt,
@@ -156,14 +128,14 @@ function formatHomeData(current){
     };
 }
 
-function renderHomePage() {
-    var current = postResult[INDEX];
-    var data = formatHomeData(current);
-    var tpl = template(TPL, data);
-    $('#container').html(tpl);
-    setTimeout(function () {
-        window.scrollTo(window._x,window._y);
-    },1)
+function renderHomePage(postResult) {
+    //渲染list
+    var renerData = []
+    postResult.forEach(function(current,idx){
+        renerData.push( formatHomeData(current,idx));
+    });
+    var tpl = template(TPL, { data :renerData });
+    return tpl;
 }
 
 function renderBtns(){
@@ -171,25 +143,41 @@ function renderBtns(){
     typeof postResult[INDEX-1] == "undefined" ? $('.js-prev').hide() :  $('.js-prev').show();
 }
 
+function translates(dom, transitionSpeed, translate3dX) {
+    dom[0].style.webkitTransform = 'translate(' + translate3dX + 'px,0px) translateZ(0)';
+    dom[0].style.transform = 'translate(' + translate3dX + 'px, 0px) translateZ(0)';
+
+}
+
+var animateDiv = $('#container');
 function bindEvent(){
     var panel = $('#panel');
     var nav = $('.js-nav');
     var thumb = $('.js-thumb');
     panel.delegate('.js-next', 'click', function(e){
-        window._y = window.scrollY;
-        window._x = window.scrollX;
+        //window._y = window.scrollY;
+        //window._x = window.scrollX;
+        var current = INDEX;
         ++INDEX;
-        getMorePosts();
+        //getMorePosts();
         if(INDEX >=0 && typeof postResult[INDEX] !== "undefined"){
-            renderHomePage();
+            //renderBtns();
+            //var animateDiv = $('#container').find('.main[data-index="'+current+'"]');
+            //animate()
+            var next = current+1;
+            var _x = $('#container').find('.item[data-index="'+next+'"]').offset().left -100;
+            translates( animateDiv, 200, -_x);
         }
     }).delegate('.js-prev', 'click', function(e){
-        window._y = window.scrollY;
-        window._x = window.scrollX;
+        //window._y = window.scrollY;
+        //window._x = window.scrollX;
+        var current = INDEX;
         --INDEX;
         if(INDEX >=0 && typeof postResult[INDEX] !== "undefined"){
-            renderHomePage();
-            renderBtns()
+            //renderBtns();
+            var prev = current-1;
+            var _x = $('#container').find('.item[data-index="'+prev+'"]').offset().left-100;
+            translates( animateDiv, 200, -_x);
         }
     });
 

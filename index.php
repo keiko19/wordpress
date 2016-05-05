@@ -12,7 +12,9 @@
     <div class="center" id="panel">
         <div class="prev pointer js-prev"><div class="wrap"><span class="btn"></span><span class="btn-txt">PREV</span></div></div>
         <div class="next pointer js-next"><div class="wrap"><span class="btn"></span><span class="btn-txt">NEXT</span></div></div>
-        <div id="container"></div>
+        <div class="slide-box">
+            <ul id="container"></ul>
+        </div>
     </div>
         <!-- 导航 start -->
     <div class="thunm js-thumb">
