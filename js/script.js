@@ -166,9 +166,8 @@ function bindEvent(){
         //getMorePosts();
         if(INDEX >=0 && next < postResult.length && nextDom.length>0){
             ++INDEX;
-            //renderBtns();
+            renderBtns();
             var _x = -getTranslateX(animateDiv)+nextDom.offset().left -100;
-            console.log(_x)
             translates( animateDiv, 200, -_x);
         }
     }).delegate('.js-prev', 'click', function(e){
@@ -177,6 +176,7 @@ function bindEvent(){
 
         if(prev >=0 && prevDom.length > 0){
             --INDEX;
+            renderBtns();
             var _x = -getTranslateX(animateDiv)+prevDom.offset().left-100;
             translates( animateDiv, 200, -_x);
         }
