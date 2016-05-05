@@ -115,8 +115,6 @@ function formatHomeData(current,idx){
     var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
     return {
         index : idx,
-        //prev: INDEX!==0,
-        //next: typeof postResult[INDEX+1] !== "undefined",
         title: current.title,
         url: current.url,
         excerpt: current.excerpt,
@@ -130,7 +128,7 @@ function formatHomeData(current,idx){
 
 function renderHomePage(postResult) {
     //渲染list
-    var renerData = []
+    var renerData = [];
     postResult.forEach(function(current,idx){
         renerData.push( formatHomeData(current,idx));
     });
@@ -149,37 +147,42 @@ function translates(dom, transitionSpeed, translate3dX) {
 
 }
 
+function getTranslateX(elem){
+    var matrix = window.getComputedStyle(elem[0], null);
+    var transform = matrix['webkitTransform'] || matrix['transform'];
+    var split = transform.split(')')[0].split(', ');
+    var x = Math.round(+(split[12] || split[4]));
+    return x || 0;
+}
+
 var animateDiv = $('#container');
 function bindEvent(){
     var panel = $('#panel');
     var nav = $('.js-nav');
     var thumb = $('.js-thumb');
     panel.delegate('.js-next', 'click', function(e){
-        //window._y = window.scrollY;
-        //window._x = window.scrollX;
-        var current = INDEX;
+        var next = INDEX+1;
+        var nextDom = animateDiv.find('.item[data-index="'+next+'"]')
         ++INDEX;
         //getMorePosts();
-        if(INDEX >=0 && typeof postResult[INDEX] !== "undefined"){
+        if(INDEX >=0 && nextDom.length>0){
+
             //renderBtns();
-            //var animateDiv = $('#container').find('.main[data-index="'+current+'"]');
-            //animate()
-            var next = current+1;
-            var _x = $('#container').find('.item[data-index="'+next+'"]').offset().left -100;
+            var _x = -getTranslateX(animateDiv)+nextDom.offset().left -100;
+            console.log(_x)
             translates( animateDiv, 200, -_x);
         }
     }).delegate('.js-prev', 'click', function(e){
-        //window._y = window.scrollY;
-        //window._x = window.scrollX;
-        var current = INDEX;
+        var prev = INDEX-1;
+        var prevDom = animateDiv.find('.item[data-index="'+prev+'"]');
         --INDEX;
-        if(INDEX >=0 && typeof postResult[INDEX] !== "undefined"){
-            //renderBtns();
-            var prev = current-1;
-            var _x = $('#container').find('.item[data-index="'+prev+'"]').offset().left-100;
+        if(INDEX >=0 && prevDom.length > 0){
+            var _x = -getTranslateX(animateDiv)+prevDom.offset().left-100;
             translates( animateDiv, 200, -_x);
         }
     });
+
+    //$(window)
 
     nav.bind('click', function (e) {
         thumb.show();
