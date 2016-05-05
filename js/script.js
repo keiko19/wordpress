@@ -163,10 +163,9 @@ function bindEvent(){
     panel.delegate('.js-next', 'click', function(e){
         var next = INDEX+1;
         var nextDom = animateDiv.find('.item[data-index="'+next+'"]');
-        ++INDEX;
         //getMorePosts();
-        if(INDEX >=0 && nextDom.length>0){
-
+        if(INDEX >=0 && next < postResult.length && nextDom.length>0){
+            ++INDEX;
             //renderBtns();
             var _x = -getTranslateX(animateDiv)+nextDom.offset().left -100;
             console.log(_x)
@@ -175,8 +174,9 @@ function bindEvent(){
     }).delegate('.js-prev', 'click', function(e){
         var prev = INDEX-1;
         var prevDom = animateDiv.find('.item[data-index="'+prev+'"]');
-        --INDEX;
-        if(INDEX >=0 && prevDom.length > 0){
+
+        if(prev >=0 && prevDom.length > 0){
+            --INDEX;
             var _x = -getTranslateX(animateDiv)+prevDom.offset().left-100;
             translates( animateDiv, 200, -_x);
         }

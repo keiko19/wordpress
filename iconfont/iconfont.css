@@ -70,7 +70,7 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
 .top .nav{position:absolute;right:40px;top:40px;font-size:2em;}
 .top .mylogo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;background:url(../images/logo.png) center center no-repeat;background-size:100%;}
 .center{width:100vw;position: relative;text-align:center;}
-.center .prev,.center .next{width:100px;position: absolute;height:100%;z-index:10000;background-color:#fff;}
+.center .prev,.center .next{width:100px;position: absolute;height:100%;z-index:999;background-color:#fff;}
 .center .prev .wrap,.center .next .wrap{position:absolute;top:50%;transform:translate(0,-50%);height:12px;width:100%;}
 .center .prev{left:0}
 .center .next{right:0}
@@ -110,7 +110,7 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
 .bottom .info .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
 .bottom .info .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:0.8em;}
 
-.thunm{position:absolute;z-index:5;height:100%;width:100%;left:0;top:0;display:none;}
+.thunm{position:absolute;z-index:9999;height:100%;width:100%;left:0;top:0;display:none;}
 .thunm .main-mask{opacity:0.3;width:100%;height:100%;background-color:#000;}
 .thunm .nav-list{position:absolute;right:0;top:0;width:35vw;height:100%;background-color:#000;}
 .thunm .nav-list .close{position:absolute;top:0;right:0;font-size:2em;background-color:#fff;width:80px;height:80px;vertical-align:middle;line-height:80px;text-align:center;color:#000;}
