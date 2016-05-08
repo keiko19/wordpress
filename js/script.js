@@ -1,12 +1,10 @@
-
-
-var homePage = function(){
+var HOST = 'http://www.miragetrip.com/';
+var HomePage = function(){
     this.INDEX = 0; //默认从几开始渲染首页
     this.postResult = [];
     this.animateDiv = $('#container');
-    this.bindEvent();
 };
-homePage.prototype = {
+HomePage.prototype = {
     TPL : ['{{each data as item}}<li class="item" data-index="{{item.index}}"><div class="image">',
             '<div class="mask"></div>',
             '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
@@ -33,7 +31,8 @@ homePage.prototype = {
                 var _html = me.renderHomePage( );
                 $('#container').html( _html );
             }
-        })
+        });
+        this.bindEvent();
     },
     getMorePosts : function(){
         fetchData({
@@ -51,7 +50,7 @@ homePage.prototype = {
         return {
             index : idx,
             title: current.title,
-            url: current.url,
+            url: '#slug='+current.slug,
             excerpt: current.excerpt,
             year: d[1].slice(2),
             month: d[2],
@@ -129,61 +128,91 @@ homePage.prototype = {
             thumb.hide()
         });
     }
+};
+
+var ArticalPage = function(){
+
+};
+ArticalPage.prototype = {
+    TPL : ['<div class="back pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">BACK</span></div></div>',
+           '<div class="main">',
+            '{{if comments.length}}<div class="comments">',
+            '<div class="comments-title">Comments（{{comments.length}})</div>',
+            '<div class="comments-wrapper"><ul class="comments-list">',
+            '{{each comments as item}}',
+            '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
+            '<div class="comment-author">',
+            '<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
+            '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
+            '</div>',
+            '<div class="comment-c"><p>{{item.content}}</p></div>',
+            '</li>',
+            '{{/each}}',
+            '</ul></div>',
+            '</div>{{/if}}',
+            '<div class="artical">',
+            '<div class="top">',
+            '<div class="time">',
+            '<div class="year">{{year}}</div>',
+            '<div class="date">{{day}}/{{month}}</div>',
+            '</div>',
+            '<div class="artical-info">',
+            '<h3 class="title">{{title}}</h3>',
+            '{{each categories as cate}}<div class="classify">{{cate.title}}</div>{{/each}}',
+            '</div>',
+            '</div>',
+            '<div class="artical-content">',
+            '{{#content}}',
+            '</div>',
+            '</div>',
+            '</div>'].join(''),
+    init : function(opt){
+        $('.homepage_body').hide();
+        var me = this;
+        this.type = opt.type;
+        this.slug = opt.slug;
+        var recentPost = fetchData({
+            url : "?json=get_post&slug="+me.slug
+        });
+        recentPost.then(function(result){
+            if(result && result.post){
+                me.render(result.post)
+            }
+        })
+    },
+    formatData: function(current){
+        var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
+        return $.extend({},{
+            year: d[1].slice(2),
+            month: d[2],
+            day: d[3]
+        },current);
+    },
+    render : function(post) {
+        //渲染list
+        var me = this;
+        var renderData = me.formatData(post);
+        console.log(renderData)
+        var tpl = template(me.TPL, renderData);
+        $('.artical_page').html(tpl);
+    }
 }
 
-
+var homepage = new HomePage();
+var articalPage = new ArticalPage();
 //解析url
-var homepage = new homePage();
 function initPage(){
+    parseSearch();
     var path = location.pathname;
     var localprefix = 'wordpress',localtest = path.indexOf(localprefix);
     if(localtest !== -1){
         path = location.pathname.slice(localtest+localprefix.length,path.length);
     }
-    if(/\/category\//.test(path)){
-        //category 跳转?
-    }else{
-        //首页 获取最新一篇文章
-        var slug = (/\/([^\/]*)\//).exec(path),
-            type = 'post';
-        if(!slug || path == '/'){
-            homepage.init();
-        }else{
-            fetchData({
-                url : "/api/get_"+type+"/",
-                data : {slug:slug[1]}
-            }).then(function (result) {
-                //console.log(result)
-            });
-        }
-    }
-}
 
-function router(url){
-    var _url,_data;
-    //列表页
-    var slug = (/\/([^\/]*)\//).exec(path),
-        type = 'post';
-    if(!slug || path == '/'){
-        _data = {
-            url : "/wordpress/?json=get_recent_posts",
-            data : {page:1,count:INDEX+2}
-        };
-    }else if(slug[1] == 'category'){
-        //category 跳转
-        var catslug = "";
-        _url = "/api/get_category_posts/";
-        _data = {count:INDEX+2, page:1, slug:catslug}
+    if(hashObj.slug){
+        articalPage.init({slug : hashObj.slug});
     }else{
-        _data = {
-            url : "/api/get_"+type+"/",
-            data : {slug:slug[1]}
-        }
-    }
-
-    return {
-        url : _url,
-        data : _data
+        homepage.init();
     }
 }
 
@@ -202,6 +231,16 @@ function fetchData(json){
             //reject(err);
         });
     });
+}
+
+function parseSearch(){
+    var hashObj = {};
+    var hash = location.hash.slice(location.hash.indexOf('#')+1,location.hash.length);
+    hash.split('&').forEach(function(item){
+        hashObj[item.split('=')[0]]= item.split('=')[1];
+    });
+
+    window.hashObj = hashObj;
 }
 
 initPage();

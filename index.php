@@ -4,7 +4,7 @@
     <h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
 </header>
 <?php endif; ?>
-<div class="body">
+<div class="homepage_body">
     <div class="top">
         <div class="mylogo pointer"></div>
         <div class="nav pointer iconfont js-nav">&#xe603;</div>
@@ -41,4 +41,5 @@
     </div>
     <!-- 导航 end -->
 </div>
+<div class="artical_page"></div>
 <?php get_footer(); ?>
