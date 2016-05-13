@@ -6,22 +6,22 @@ var HomePage = function(){
 };
 HomePage.prototype = {
     TPL : ['{{each data as item}}<li class="item" data-index="{{item.index}}"><div class="image">',
-            '<div class="mask"></div>',
-            '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
-            '<div class="picnum">{{item.picnum}}P</div>',
-            '<img class="main-img" src="{{item.attachmentsUrl}}">',
-            '</div>',
-            '</div>',
-            '<div class="bottom">',
-            '<div class="brief">{{item.excerpt}}</div>',
-            '<div class="info">',
-            '<p class="title">{{item.title}}</p>',
-            '<div class="time"><div class="year">{{item.year}}</div><div class="date">{{item.month}}/{{item.day}}</div></div></div>',
-            '</div></li>{{/each}}'].join(''),
+        '<div class="mask"></div>',
+        '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
+        '<div class="picnum">{{item.picnum}}P</div>',
+        '<img class="main-img" src="{{item.attachmentsUrl}}">',
+        '</div>',
+        '</div>',
+        '<div class="bottom">',
+        '<div class="brief">{{#item.excerpt}}</div>',
+        '<div class="info">',
+        '<p class="title">{{item.title}}</p>',
+        '<div class="time"><div class="year">{{item.year}}</div><div class="date">{{item.month}}/{{item.day}}</div></div></div>',
+        '</div></li>{{/each}}'].join(''),
     init : function(){
         var me = this;
         var recentPost = fetchData({
-            url : "/wordpress/?json=get_recent_posts",
+            url : "/?json=get_recent_posts",
             data : {page:1,count:10}
             //data : {page:1,count:INDEX+2}
         });
@@ -36,7 +36,7 @@ HomePage.prototype = {
     },
     getMorePosts : function(){
         fetchData({
-            url : "/wordpress/?json=get_recent_posts",
+            url : "/?json=get_recent_posts",
             data : {page:1,count:me.INDEX+2}
         }).then(function(result){
             if (result.posts && result.posts.length != 0) {
@@ -55,7 +55,7 @@ HomePage.prototype = {
             year: d[1].slice(2),
             month: d[2],
             day: d[3],
-            attachmentsUrl: current.attachments.length > 0 && current.attachments[0].images.large.url || "",
+            attachmentsUrl: current.custom_fields  &&  current.custom_fields.topic &&  current.custom_fields.topic[0] || "",
             picnum: current.attachments.length
         };
     },
@@ -135,37 +135,37 @@ var ArticalPage = function(){
 };
 ArticalPage.prototype = {
     TPL : ['<div class="back pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">BACK</span></div></div>',
-           '<div class="main">',
-            '{{if comments.length}}<div class="comments">',
-            '<div class="comments-title">Comments（{{comments.length}})</div>',
-            '<div class="comments-wrapper"><ul class="comments-list">',
-            '{{each comments as item}}',
-            '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
-            '<div class="comment-author">',
-            '<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
-            '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
-            '</div>',
-            '<div class="comment-c"><p>{{item.content}}</p></div>',
-            '</li>',
-            '{{/each}}',
-            '</ul></div>',
-            '</div>{{/if}}',
-            '<div class="artical">',
-            '<div class="top">',
-            '<div class="time">',
-            '<div class="year">{{year}}</div>',
-            '<div class="date">{{day}}/{{month}}</div>',
-            '</div>',
-            '<div class="artical-info">',
-            '<h3 class="title">{{title}}</h3>',
-            '{{each categories as cate}}<div class="classify">{{cate.title}}</div>{{/each}}',
-            '</div>',
-            '</div>',
-            '<div class="artical-content">',
-            '{{#content}}',
-            '</div>',
-            '</div>',
-            '</div>'].join(''),
+        '<div class="main">',
+        '{{if comments.length}}<div class="comments">',
+        '<div class="comments-title">Comments（{{comments.length}})</div>',
+        '<div class="comments-wrapper"><ul class="comments-list">',
+        '{{each comments as item}}',
+        '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
+        '<div class="comment-author">',
+        '<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
+        '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
+        '</div>',
+        '<div class="comment-c"><p>{{item.content}}</p></div>',
+        '</li>',
+        '{{/each}}',
+        '</ul></div>',
+        '</div>{{/if}}',
+        '<div class="artical">',
+        '<div class="top">',
+        '<div class="time">',
+        '<div class="year">{{year}}</div>',
+        '<div class="date">{{day}}/{{month}}</div>',
+        '</div>',
+        '<div class="artical-info">',
+        '<h3 class="title">{{title}}</h3>',
+        '{{each categories as cate}}<div class="classify">{{cate.title}}</div>{{/each}}',
+        '</div>',
+        '</div>',
+        '<div class="artical-content">',
+        '{{#content}}',
+        '</div>',
+        '</div>',
+        '</div>'].join(''),
     init : function(opt){
         $('.homepage_body').hide();
         var me = this;
