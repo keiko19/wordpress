@@ -105,7 +105,23 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
     width : 100%;
     height: 100%;position: absolute;text-align:center;
 }
-.center .prev,.center .next{width:100px;position: absolute;height:100%;z-index:999;background-color:#fff;}
+.center .prev,.center .next{
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    width:100px;position: absolute;height:100%;z-index:999;background-color:#fff;
+}
+.center .prev .click-item,.center .next .click-item{
+    position: relative;
+    flex : 1;
+    -webkit-flex: 1;
+    width: 100%;
+}
+.center .prev .btn-bottom,.center .next .btn-bottom{
+    -webkit-flex-basis : 110px;
+    flex-basis : 110px;
+}
 .center .prev .wrap,.center .next .wrap{position:absolute;top:50%;transform:translate(0,-50%);height:12px;width:100%;}
 .center .prev{left:0}
 .center .next{right:0}
