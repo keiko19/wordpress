@@ -240,6 +240,8 @@ ArticalPage.prototype = {
         console.log(renderData)
         var tpl = template(me.TPL, renderData);
         $('.artical_page').html(tpl);
+        var $fimg = $('.artical-content').find("img");
+        $fimg.parents("p:not(.full-img)").addClass("full-img");
     }
 }
 
