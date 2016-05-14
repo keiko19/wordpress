@@ -73,8 +73,8 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
     height: 100%;
 }
 .flex-top{
-    flex-basis: 130px;
-    -webkit-flex-basis: 130px;
+    flex-basis: 120px;
+    -webkit-flex-basis: 120px;
 }
 .flex-center{
     flex : 1;
@@ -98,7 +98,7 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
     overflow:hidden;
     margin-top:30px;
 }
-.top{height:130px;position:relative;}
+.top{height:120px;position:relative;}
 .top .nav{position:absolute;right:40px;top:40px;font-size:2em;}
 .top .mylogo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;background:url(../images/logo.png) center center no-repeat;background-size:100%;}
 .center{
