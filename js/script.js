@@ -160,9 +160,9 @@ HomePage.prototype = {
             lastTime = time;
             var direct = scrollFunc(e);
             if(direct < 0){
-                me.prevClick();
-            }else{
                 me.nextClick();
+            }else{
+                me.prevClick();
             }
         });
 
