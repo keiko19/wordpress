@@ -227,15 +227,17 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .main{margin-left:100px;overflow-x:hidden;height:100%;}
 .main .artical-top{overflow:hidden;padding:20px 0;height: 40px;}
+.main .artical-top .cats{float: right;}
+.main .artical-top .cats .classify{padding-left: 10px;}
 .main .artical-top .time{float:left;display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;}
 .main .artical-top .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
 .main .artical-top .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:0.8em;}
 .main .artical-top .artical-info{float:left;padding-left:15px;}
-.main .artical-top .right-social{float:right;}
-.main .artical-top .right-social .share{color:#666;}
-.main .artical-top .right-social .prev,.main .artical-top .right-social .next{display:inline-block;height:12px;width:8px;}
-.main .artical-top .right-social .prev{background:url(../images/arrow_left.png) center center no-repeat;}
-.main .artical-top .right-social .next{background:url(../images/arrow_next.png) center center no-repeat;}
+.main  .right-social{float:right;}
+.main .right-social .share{color:#666;}
+.main .right-social .prev-artical,.main .right-social .next-artical{display:inline-block;height:12px;width:8px;}
+.main .right-social .prev-artical{background:url(../images/arrow_left.png) center center no-repeat;}
+.main .right-social .next-artical{background:url(../images/arrow_next.png) center center no-repeat;}
 
 .artical{margin-right:360px;}
 .artical::-webkit-scrollbar {

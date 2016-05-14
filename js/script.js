@@ -186,11 +186,15 @@ var ArticalPage = function(){
 
 };
 ArticalPage.prototype = {
-    TPL : ['<div class="back pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">BACK</span></div></div>',
+    TPL : ['<div class="back js-backHome pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">BACK</span></div></div>',
            '<div class="main">',
             '<div class="right-box">',
                 '<div class="right-share">',
-                    '<div class="right-social"><i class="share iconfont pointer">&#xe601;</i><i class="prev pointer"></i><i class="next pointer"></i></div>',
+                    '<div class="right-social">',
+                        '<i class="share iconfont pointer">&#xe601;</i>',
+                        '{{if next_url}}<a class="prev-artical pointer" href="{{next_url}}"></a>{{/if}}',
+                        '{{if previous_url}}<a class="next-artical pointer" href="{{previous_url}}"></a>{{/if}}',
+                    '</div>',
                 '</div>',
                 '<div class="comments">',
                     '<div class="comments-title">Comments（{{comments.length}})</div>',
@@ -220,13 +224,13 @@ ArticalPage.prototype = {
             '</div>',
             '<div class="artical">',
             '<div class="artical-top">',
+                '<div class="cats">{{each categories as cate}}<span class="classify">{{cate.title}}</span>{{/each}}</div>',
             '<div class="time">',
             '<div class="year">{{year}}</div>',
             '<div class="date">{{day}}/{{month}}</div>',
             '</div>',
             '<div class="artical-info">',
             '<h3 class="title">{{title}}</h3>',
-            '{{each categories as cate}}<div class="classify">{{cate.title}}</div>{{/each}}',
             '</div>',
             '</div>',
             '<div class="artical-content">',
@@ -246,7 +250,8 @@ ArticalPage.prototype = {
             if(result && result.post){
                 me.render(result.post)
             }
-        })
+        });
+        this.bindEvent();
     },
     formatData: function(current){
         var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
@@ -262,8 +267,16 @@ ArticalPage.prototype = {
         var renderData = me.formatData(post);
         var tpl = template(me.TPL, renderData);
         $('.artical_page').html(tpl);
-        var $fimg = $('.artical-content').find("img");
+        var articalContent = $('.artical-content');
+        var $fimg = articalContent.find("img");
+        var iframe = articalContent.find("iframe");
         $fimg.parents("p:not(.full-img)").addClass("full-img");
+        iframe.parents("p:not(.full-img)").addClass("full-img");
+    },
+    bindEvent : function(){
+        $('.js-backHome').bind('click', function(){
+            history.go(-1);
+        });
     }
 }
 
