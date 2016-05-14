@@ -329,16 +329,16 @@ var articalPage = new ArticalPage();
 //解析url
 function initPage(){
     parseSearch();
-    var path = location.pathname;
+    var path = location.pathname.split('/');
     var localprefix = 'wordpress',localtest = path.indexOf(localprefix);
     if(localtest !== -1){
         path = location.pathname.slice(localtest+localprefix.length,path.length);
     }
 
-    if(path.length == 1){
-        articalPage.init({slug : path});
-    }else{
+    if(path.length == 2){
         homepage.init();
+    }else if(path.length == 3){
+        articalPage.init({slug : path[1]});
     }
 }
 
