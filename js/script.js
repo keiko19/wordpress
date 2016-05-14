@@ -326,9 +326,7 @@ ArticalPage.prototype = {
             if(value.indexOf('@'+name+':') !==0){
                 postText.attr({'data-id':"","data-user":""});
             }
-        });
-
-        $('.js-post').bind('click', function(){
+        }).delegate('.js-post','click', function(){
            me.post();
         });
     }

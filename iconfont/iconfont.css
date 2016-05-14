@@ -279,8 +279,9 @@ only screen and (min-device-pixel-ratio: 2) {
 .comment-post {position:absolute; right:0; bottom:0;width:100%;background-color:#fff;}
 .comment-post .comment-post-wrapper {padding:0 20px;background-color: #fff;}
 .comment-post textarea {width:100%;margin-top:20px;outline: none;border: none;border-bottom:1px solid #e3e3e3;}
-.comment-post .comment-submit {height:40px; overflow:hidden;float:right;margin-top:10px;}
-.comment-post .comment-submit .post-comment {
+.comment-post .comment-submit .post-comment{
+    display: inline-block;
+    height:34px;width:56px; overflow:hidden;float:right;margin-top:10px;
     cursor:pointer;
     background:url(../images/button_post.png) center center no-repeat;
 }
