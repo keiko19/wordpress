@@ -236,7 +236,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .main .artical-top .right-social .prev{background:url(../images/arrow_left.png) center center no-repeat;}
 .main .artical-top .right-social .next{background:url(../images/arrow_next.png) center center no-repeat;}
 
-.artical{margin-right:300px;}
+.artical{margin-right:340px;}
 .artical::-webkit-scrollbar {
     width:0;
     height:0;
@@ -252,7 +252,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .comments{background-color:#fff;}
 .comments .comments-title{margin-bottom: 20px;text-transform: uppercase;padding:0 20px;}
 
-.comments-wrapper{padding:0 20px;position: relative;padding-bottom: 50px;}
+.comments-wrapper{position: relative;padding-bottom: 50px;}
 .comments-wrapper .comments-list{overflow-y: auto;overflow-x: hidden;}
 .comments-wrapper .comments-list li{border-bottom:1px solid #e3e3e3;margin-top:10px;}
 .comments-wrapper .comments-list .comment-author{padding-top: 5px;color: #AAA;background: white;}
