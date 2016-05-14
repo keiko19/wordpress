@@ -309,6 +309,7 @@ ArticalPage.prototype = {
         }
     },
     bindEvent : function(){
+        var me = this;
         $('.js-backHome').bind('click', function(){
             history.go(-1);
         });
