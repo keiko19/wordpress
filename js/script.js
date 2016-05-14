@@ -1,5 +1,21 @@
 var HOST = 'http://www.miragetrip.com/';
-//todo 1.loading 2.copyright 3.window resize 4.on scroll
+var scrollFunc = function (e) {
+    var direct = 0;
+    e = e.originalEvent || window.event;
+    if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
+        //当滑轮向上滚动时 e.wheelDelta > 0
+        //当滑轮向下滚动时 e.wheelDelta < 0
+        direct = e.wheelDelta;
+    } else if (e.detail) {  //Firefox滑轮事件
+        //当滑轮向上滚动时 e.detail > 0
+        //当滑轮向下滚动时 e.detail < 0
+        direct = e.detail;
+    }
+    return direct;
+}
+
+//todo 1.loading 2.copyright 3.window resize 4.on scroll 5.load下一页
+//todo 1.文字右边 2.评论 3.回复 4.回首页 5.上一个下一个
 var HomePage = function(){
     this.INDEX = 0; //默认从几开始渲染首页
     this.postResult = [];
@@ -21,6 +37,7 @@ HomePage.prototype = {
         '</div></div></li>{{/each}}'].join(''),
     page : 1,
     count : 20,
+    isLoading : false,
     init : function(){
         var me = this;
         var recentPost = fetchData({
@@ -47,6 +64,7 @@ HomePage.prototype = {
         }).then(function(result){
             if (result.posts && result.posts.length != 0) {
                 me.page++;
+                me.isLoading = false;
                 me.postResult.push(result.posts);
                 var _html = me.renderHomePage(result.posts);
                 $('#container').append( _html )
@@ -98,7 +116,8 @@ HomePage.prototype = {
         var me = this;
             var next = me.INDEX+1;
             var nextDom = me.animateDiv.find('.item[data-index="'+next+'"]');
-            if( me.postResult.length - me.INDEX < 10){
+            if( me.postResult.length - me.INDEX < 10 && !me.isLoading){
+                me.isLoading = true;
                 me.getMorePosts();
             }
             if(me.INDEX >=0 && next < me.postResult.length && nextDom.length>0){
@@ -132,14 +151,18 @@ HomePage.prototype = {
             me.prevClick();
         });
 
-        //$(window).bind('resize',function(){
-        //    var currentDom = me.animateDiv.find('.item[data-index="'+me.INDEX+'"]');
-        //
-        //    if(currentDom.offset().left !== 100){
-        //        var _x = -me.getTranslateX(me.animateDiv) + currentDom.offset().left - 100;
-        //        me.translates( me.animateDiv, 200, -_x);
-        //    }
-        //});
+        $(window).bind('mousewheel', function(e){
+            var direct = scrollFunc(e);
+            if(direct < 0){
+                me.prevClick();
+            }else{
+                me.nextClick();
+            }
+        });
+
+        $(window).bind('resize',function(){
+            me.animateDiv.hide().show()
+        });
 
         nav.bind('click', function (e) {
             thumb.show();
