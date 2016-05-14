@@ -203,7 +203,7 @@ ArticalPage.prototype = {
                     '{{each comments as item}}',
                     '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
                     '<div class="comment-author">',
-                    '<a href="javascript:void(0);" data-name="{{item.name}}" class="js-replay reply iconfont">&#xe602;</a>',
+                    '<a href="javascript:void(0);" data-id="{{item.id}}" data-name="{{item.name}}" class="js-replay reply iconfont">&#xe602;</a>',
                     '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
                     '</div>',
                     '<div class="comment-c"><p>{{#item.content}}</p></div>',
@@ -215,9 +215,9 @@ ArticalPage.prototype = {
                 '<div class="comment-post">',
                     '<div class="comment-post-wrapper">',
                     '<form>',
-                        '<div><textarea placeholder="YOUR NAME"></textarea></div>',
+                        '<div><textarea class="js-post-name" placeholder="YOUR NAME"></textarea></div>',
                         '<div><textarea class="js-post-text" placeholder="WRITE HERE"></textarea></div>',
-                        '<div class="comment-submit"><input type="submit" class="post-comment" value="POST"></div>',
+                        '<div class="comment-submit"><a class="post-comment js-post" href="javascript:void(0)"></div>',
                     '</form>',
                     '</div>',
                 '</div>',
@@ -238,6 +238,8 @@ ArticalPage.prototype = {
             '</div>',
             '</div>',
             '</div>'].join(''),
+    commentTpl : ['<li id="comment_{{id}}" data-user="{{name}}"><div class="comment-author"><a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
+        '<a href="{{url}}" target="_blank" rel="nofollow">{{name}}</a>({{date}})</div><div class="comment-c"><p></p><p>{{content}}</p><p></p></div></li>'].join(''),
     init : function(opt){
         $('.homepage_body').hide();
         var me = this;
@@ -248,6 +250,7 @@ ArticalPage.prototype = {
         });
         recentPost.then(function(result){
             if(result && result.post){
+                me.id=result.post.id;
                 me.render(result)
             }
         });
@@ -275,6 +278,33 @@ ArticalPage.prototype = {
         $fimg.parents("p:not(.full-img)").addClass("full-img");
         iframe.parents("p:not(.full-img)").addClass("full-img");
     },
+    post : function(){
+        var me = this;
+        var _name = $(".js-post-name").val();
+        var _content = $(".js-post-text").val();
+        var _aid = $(".js-post-text").attr('data-id');
+        if (!_name || !_content) {
+            return false;
+        }else{
+            fetchData({
+                type: "POST",
+                url: "/api/respond/submit_comment/",
+                data: {post_id:me.id, parent:_aid, name:_name, url:_url, content:_content},
+                timeout: 30000
+            }).done(function(_d){
+                if (_d.status=="ok") { //写一条新评论
+                    var tpl = template(me.commentTpl, _d);
+                    $(".comments-list").prepend(tpl);
+
+                    //tips('loading','hide');
+                    return false;
+                } else {
+                    //tips('tips', 'show', '评论提交失败，请刷新或稍后重试！');
+                    return false;
+                }
+            });
+        }
+    },
     bindEvent : function(){
         $('.js-backHome').bind('click', function(){
             history.go(-1);
@@ -283,7 +313,13 @@ ArticalPage.prototype = {
         var postText = $('.js-post-text');
         $('.artical_page').delegate('.js-replay', 'click', function(e){
             var name = $(e.target).attr('data-name');
+            var id = $(e.target).attr('data-id');
             postText.value = '@'+name+': ';
+            postText.attr('data-id',id);
+        });
+
+        $('.js-post').bind('click', function(){
+           me.post();
         });
     }
 }
