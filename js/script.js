@@ -317,8 +317,15 @@ ArticalPage.prototype = {
             var name = $(e.target).attr('data-name');
             var id = $(e.target).attr('data-id');
             var postText = $('.js-post-text');
-            postText.value = '@'+name+': ';
-            postText.attr('data-id',id);
+            postText.val('@'+name+':');
+            postText.attr({'data-id':id,"data-user":name});
+        }).delegate('.js-post-text','change', function(){
+            var postText = $('.js-post-text');
+            var name = postText.attr("data-user");
+            var value = postText.val();
+            if(value.indexOf('@'+name+':') !==0){
+                postText.attr({'data-id':"","data-user":""});
+            }
         });
 
         $('.js-post').bind('click', function(){
