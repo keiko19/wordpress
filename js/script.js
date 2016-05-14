@@ -203,7 +203,7 @@ ArticalPage.prototype = {
                     '{{each comments as item}}',
                     '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
                     '<div class="comment-author">',
-                    '<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
+                    '<a href="javascript:void(0);" data-name="{{item.name}}" class="js-replay reply iconfont">&#xe602;</a>',
                     '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
                     '</div>',
                     '<div class="comment-c"><p>{{#item.content}}</p></div>',
@@ -216,7 +216,7 @@ ArticalPage.prototype = {
                     '<div class="comment-post-wrapper">',
                     '<form>',
                         '<div><textarea placeholder="YOUR NAME"></textarea></div>',
-                        '<div><textarea placeholder="WRITE HERE"></textarea></div>',
+                        '<div><textarea class="js-post-text" placeholder="WRITE HERE"></textarea></div>',
                         '<div class="comment-submit"><input type="submit" class="post-comment" value="POST"></div>',
                     '</form>',
                     '</div>',
@@ -278,6 +278,12 @@ ArticalPage.prototype = {
     bindEvent : function(){
         $('.js-backHome').bind('click', function(){
             history.go(-1);
+        });
+
+        var postText = $('.js-post-text');
+        $('.artical_page').delegate('.js-replay', 'click', function(e){
+            var name = $(e.target).attr('data-name');
+            postText.value = '@'+name+': ';
         });
     }
 }
