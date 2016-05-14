@@ -137,7 +137,7 @@ img { max-width: 100%;}/*图片的自适应（fluid image）*/
     width: 100%;
     height : 100%;
 }
-.center .image{position:relative;}
+.center .image{position:relative;background-size: cover;background-position:center center;background-repeat: no-repeat}
 .center .image .picnum{width:40px;height:40px;border-radius:5px;padding:3px;position:absolute;bottom:10px;right:10px;background-color:#fff;opacity:0.8;color:#666;vertical-align:middle;text-align:center;line-height:40px;}
 .center .image .main-img{margin:0 auto;width:100%;z-index:4;}
 .bottom .brief{float:right;width:70%;font-size:0.875em;line-height:1.75em;}

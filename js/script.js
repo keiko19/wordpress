@@ -7,11 +7,10 @@ var HomePage = function(){
 HomePage.prototype = {
     TPL : ['{{each data as item}}<li class="item" data-index="{{item.index}}">',
         '<div class="item-flex-box">',
-            '<div class="image">',
+            '<div class="image" style="background-url:{{item.attachmentsUrl}};">',
                 '<div class="mask"></div>',
                 '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
                 '<div class="picnum">{{item.picnum}}P</div>',
-                '<img class="main-img" src="{{item.attachmentsUrl}}">',
             '</div>',
         '<div class="bottom">',
         '<div class="brief">{{#item.excerpt}}</div>',
