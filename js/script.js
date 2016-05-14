@@ -252,6 +252,8 @@ ArticalPage.prototype = {
             if(result && result.post){
                 me.id=result.post.id;
                 me.render(result)
+            }else{
+                window.location = HOST;
             }
         });
         this.bindEvent();
