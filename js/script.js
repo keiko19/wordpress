@@ -7,7 +7,7 @@ var HomePage = function(){
 HomePage.prototype = {
     TPL : ['{{each data as item}}<li class="item" data-index="{{item.index}}">',
         '<div class="item-flex-box">',
-            '<div class="image js-link" data-link="{{item.url}}" style="background:url(&quot;{{item.attachmentsUrl}}&quot);">',
+            '<div class="image js-link" data-link="{{item.url}}" style="background:url(&quot;{{item.attachmentsUrl}}&quot) center center no-repeat cover;">',
                 '<div class="mask"></div>',
                 '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
                 '<div class="picnum">{{item.picnum}}P</div>',
@@ -92,13 +92,8 @@ HomePage.prototype = {
         var x = Math.round(+(split[12] || split[4]));
         return x || 0;
     },
-
-    bindEvent : function(){
+    nextClick: function(){
         var me = this;
-        var panel = $('#panel');
-        var nav = $('.js-nav');
-        var thumb = $('.js-thumb');
-        panel.delegate('.js-next', 'click', function(e){
             var next = me.INDEX+1;
             var nextDom = me.animateDiv.find('.item[data-index="'+next+'"]');
             if( me.postResult.length - me.INDEX < 10){
@@ -111,8 +106,10 @@ HomePage.prototype = {
                 var _x = -me.getTranslateX(me.animateDiv)+nextDom.offset().left -100;
                 me.translates( me.animateDiv, 200, -_x);
             }
-        }).delegate('.js-prev', 'click', function(e){
-            var prev = me.INDEX-1;
+    },
+    prevClick : function(){
+        var me = this;
+        var prev = me.INDEX-1;
             var prevDom = me.animateDiv.find('.item[data-index="'+prev+'"]');
 
             if(prev >=0 && prevDom.length > 0){
@@ -121,6 +118,16 @@ HomePage.prototype = {
                 var _x = -me.getTranslateX(me.animateDiv)+prevDom.offset().left-100;
                 me.translates( me.animateDiv, 200, -_x);
             }
+    },
+    bindEvent : function(){
+        var me = this;
+        var panel = $('#panel');
+        var nav = $('.js-nav');
+        var thumb = $('.js-thumb');
+        panel.delegate('.js-next', 'click', function(e){
+            me.nextClick();
+        }).delegate('.js-prev', 'click', function(e){
+            me.prevClick();
         });
 
         //$(window).bind('resize',function(){
@@ -142,6 +149,10 @@ HomePage.prototype = {
         $('.js-link').bind('click', function(){
              var link = $(this).attr("data-link");
              window.open(link);
+        });
+        
+        $(window).bind('scroll', function(){
+            me.nextClick();
         });
     }
 };
