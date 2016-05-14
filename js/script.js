@@ -237,7 +237,6 @@ ArticalPage.prototype = {
         //渲染list
         var me = this;
         var renderData = me.formatData(post);
-        console.log(renderData)
         var tpl = template(me.TPL, renderData);
         $('.artical_page').html(tpl);
         var $fimg = $('.artical-content').find("img");

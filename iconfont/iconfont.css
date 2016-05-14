@@ -251,7 +251,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .artical-content{height:100%;}
 .artical-content p{
     text-indent: 2em;
-    padding: 15px 25px;
+    padding: 15px 0;
     line-height: 24px;
 }
 .full-img {
