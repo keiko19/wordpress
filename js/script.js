@@ -1,4 +1,5 @@
 var HOST = 'http://www.miragetrip.com/';
+//todo 1.loading 2.copyright 3.window resize 4.on scroll
 var HomePage = function(){
     this.INDEX = 0; //默认从几开始渲染首页
     this.postResult = [];
@@ -28,6 +29,7 @@ HomePage.prototype = {
             //data : {page:1,count:INDEX+2}
         });
         recentPost.then(function(result){
+            $('.homepage_body').show();
             if (result.posts && result.posts.length != 0) {
                 me.page++;
                 me.postResult = result.posts;
@@ -163,20 +165,36 @@ var ArticalPage = function(){
 ArticalPage.prototype = {
     TPL : ['<div class="back pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">BACK</span></div></div>',
            '<div class="main">',
-            '{{if comments.length}}<div class="comments">',
-            '<div class="comments-title">Comments（{{comments.length}})</div>',
-            '<div class="comments-wrapper"><ul class="comments-list">',
-            '{{each comments as item}}',
-            '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
-            '<div class="comment-author">',
-            '<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
-            '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
+            '<div class="right-box">',
+                '<div class="right-share">',
+                    '<div class="right-social"><i class="share iconfont pointer">&#xe601;</i><i class="prev pointer"></i><i class="next pointer"></i></div>',
+                '</div>',
+                '<div class="comments">',
+                    '<div class="comments-title">Comments（{{comments.length}})</div>',
+                    '{{if comments.length}}',
+                    '<div class="comments-wrapper"><ul class="comments-list">',
+                    '{{each comments as item}}',
+                    '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
+                    '<div class="comment-author">',
+                    '<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
+                    '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
+                    '</div>',
+                    '<div class="comment-c"><p>{{#item.content}}</p></div>',
+                    '</li>',
+                    '{{/each}}',
+                    '</ul></div>',
+                    '{{/if}}',
+                '</div>',
+                '<div class="comment-post">',
+                    '<div class="comment-post-wrapper">',
+                    '<form>',
+                        '<div><textarea placeholder="YOUR NAME"></textarea></div>',
+                        '<div><textarea placeholder="WRITE HERE"></textarea></div>',
+                        '<div class="comment-submit"><input type="submit" class="post-comment" value="POST"></div>',
+                    '</form>',
+                    '</div>',
+                '</div>',
             '</div>',
-            '<div class="comment-c"><p>{{item.content}}</p></div>',
-            '</li>',
-            '{{/each}}',
-            '</ul></div>',
-            '</div>{{/if}}',
             '<div class="artical">',
             '<div class="top">',
             '<div class="time">',

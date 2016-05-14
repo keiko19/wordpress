@@ -4,7 +4,7 @@
     <h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
 </header>
 <?php endif; ?>
-<div class="homepage_body">
+<div class="homepage_body" style="display:none">
     <div class="flex-box">
         <div class="flex-top">
             <div class="top">

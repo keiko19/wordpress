@@ -191,6 +191,22 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 /*文章页*/
+.right-box{
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    height: 100vh;
+}
+.right-box .right-share,.right-box .comment-post{
+    -webkit-flex-basis : 110px;
+    flex-basis : 110px;
+}
+.right-box .comments{
+    flex : 1;
+    -webkit-flex: 1;
+    overflow: hidden;
+}
 .pointer{cursor:pointer;}
 .back{position:fixed;height:100%;width:100px;}
 .back .wrap{position:absolute;top:50%;transform:translate(0,-50%);width:100%;text-align:center;}
