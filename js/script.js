@@ -217,7 +217,7 @@ ArticalPage.prototype = {
                     '<form>',
                         '<div><textarea class="js-post-name" placeholder="YOUR NAME"></textarea></div>',
                         '<div><textarea class="js-post-text" placeholder="WRITE HERE"></textarea></div>',
-                        '<div class="comment-submit"><a class="post-comment js-post" href="javascript:void(0)"></div>',
+                        '<div class="comment-submit"><a class="post-comment js-post" href="javascript:void(0)"></a></div>',
                     '</form>',
                     '</div>',
                 '</div>',
