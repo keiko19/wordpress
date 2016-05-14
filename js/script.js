@@ -151,7 +151,13 @@ HomePage.prototype = {
             me.prevClick();
         });
 
+        var lastTime = null;
         $(window).bind('mousewheel', function(e){
+            var time = new Date();
+            if(lastTime && time-lastTime < 1000){
+                return false;
+            }
+            lastTime = time;
             var direct = scrollFunc(e);
             if(direct < 0){
                 me.prevClick();
@@ -175,10 +181,7 @@ HomePage.prototype = {
              var link = $(this).attr("data-link");
              window.open(link);
         });
-        
-        $(window).bind('scroll', function(){
-            me.nextClick();
-        });
+
     }
 };
 
