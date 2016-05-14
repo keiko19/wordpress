@@ -24,7 +24,7 @@ HomePage.prototype = {
     init : function(){
         var me = this;
         var recentPost = fetchData({
-            url : "/wordpress/?json=get_recent_posts",
+            url : "/?json=get_recent_posts",
             data : {page:me.page,count:me.count}
             //data : {page:1,count:INDEX+2}
         });
@@ -41,7 +41,7 @@ HomePage.prototype = {
     getMorePosts : function(){
         var me = this;
         fetchData({
-            url : "/wordpress/?json=get_recent_posts",
+            url : "/?json=get_recent_posts",
             data : {page:me.page,count:me.count}
         }).then(function(result){
             if (result.posts && result.posts.length != 0) {
