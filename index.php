@@ -14,8 +14,14 @@
         </div>
         <div class="flex-center">
             <div class="center" id="panel">
-                <div class="prev pointer js-prev"><div class="wrap"><span class="btn"></span><span class="btn-txt">PREV</span></div></div>
-                <div class="next pointer js-next"><div class="wrap"><span class="btn"></span><span class="btn-txt">NEXT</span></div></div>
+                <div class="btn-box">
+                    <div class="prev pointer js-prev"><div class="wrap"><span class="btn"></span><span class="btn-txt">PREV</span></div></div>
+                    <div class="btn-bottom"></div>
+                </div>
+                <div class="btn-box">
+                    <div class="next pointer js-next"><div class="wrap"><span class="btn"></span><span class="btn-txt">NEXT</span></div></div>
+                    <div class="btn-bottom"></div>
+                </div>
                     <ul id="container" class="slide-box"></ul>
             </div>
         </div>
