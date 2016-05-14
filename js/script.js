@@ -312,10 +312,10 @@ ArticalPage.prototype = {
             history.go(-1);
         });
 
-        var postText = $('.js-post-text');
         $('.artical_page').delegate('.js-replay', 'click', function(e){
             var name = $(e.target).attr('data-name');
             var id = $(e.target).attr('data-id');
+            var postText = $('.js-post-text');
             postText.value = '@'+name+': ';
             postText.attr('data-id',id);
         });
