@@ -254,6 +254,11 @@ only screen and (min-device-pixel-ratio: 2) {
     padding: 15px 25px;
     line-height: 24px;
 }
+.full-img {
+    padding: 0!important;
+    text-indent: 0!important;
+    margin-bottom: 20px;
+}
 
 
 .comments{background-color:#fff;}
