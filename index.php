@@ -5,15 +5,19 @@
 </header>
 <?php endif; ?>
 <div class="homepage_body">
-    <div class="top">
-        <div class="mylogo pointer"></div>
-        <div class="nav pointer iconfont js-nav">&#xe603;</div>
-    </div>
-    <div class="center" id="panel">
-        <div class="prev pointer js-prev"><div class="wrap"><span class="btn"></span><span class="btn-txt">PREV</span></div></div>
-        <div class="next pointer js-next"><div class="wrap"><span class="btn"></span><span class="btn-txt">NEXT</span></div></div>
-        <div class="slide-box">
-            <ul id="container"></ul>
+    <div class="flex-box">
+        <div class="flex-top">
+            <div class="top">
+                <div class="mylogo pointer"></div>
+                <div class="nav pointer iconfont js-nav">&#xe603;</div>
+            </div>
+        </div>
+        <div class="flex-center">
+            <div class="center" id="panel">
+                <div class="prev pointer js-prev"><div class="wrap"><span class="btn"></span><span class="btn-txt">PREV</span></div></div>
+                <div class="next pointer js-next"><div class="wrap"><span class="btn"></span><span class="btn-txt">NEXT</span></div></div>
+                    <ul id="container" class="slide-box"></ul>
+            </div>
         </div>
     </div>
         <!-- 导航 start -->

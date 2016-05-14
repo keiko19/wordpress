@@ -5,43 +5,50 @@ var HomePage = function(){
     this.animateDiv = $('#container');
 };
 HomePage.prototype = {
-    TPL : ['{{each data as item}}<li class="item" data-index="{{item.index}}"><div class="image">',
-        '<div class="mask"></div>',
-        '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
-        '<div class="picnum">{{item.picnum}}P</div>',
-        '<img class="main-img" src="{{item.attachmentsUrl}}">',
-        '</div>',
-        '</div>',
+    TPL : ['{{each data as item}}<li class="item" data-index="{{item.index}}">',
+        '<div class="item-flex-box">',
+            '<div class="image">',
+                '<div class="mask"></div>',
+                '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
+                '<div class="picnum">{{item.picnum}}P</div>',
+                '<img class="main-img" src="{{item.attachmentsUrl}}">',
+            '</div>',
         '<div class="bottom">',
         '<div class="brief">{{#item.excerpt}}</div>',
         '<div class="info">',
         '<p class="title">{{item.title}}</p>',
         '<div class="time"><div class="year">{{item.year}}</div><div class="date">{{item.month}}/{{item.day}}</div></div></div>',
-        '</div></li>{{/each}}'].join(''),
+        '</div></div></li>{{/each}}'].join(''),
+    page : 1,
+    count : 20,
     init : function(){
         var me = this;
         var recentPost = fetchData({
-            url : "/?json=get_recent_posts",
-            data : {page:1,count:10}
+            url : "/wordpress/?json=get_recent_posts",
+            data : {page:me.page,count:me.count}
             //data : {page:1,count:INDEX+2}
         });
         recentPost.then(function(result){
             if (result.posts && result.posts.length != 0) {
+                me.page++;
                 me.postResult = result.posts;
-                var _html = me.renderHomePage( );
+                var _html = me.renderHomePage(result.posts);
                 $('#container').html( _html );
             }
         });
         this.bindEvent();
     },
     getMorePosts : function(){
+        var me = this;
         fetchData({
-            url : "/?json=get_recent_posts",
-            data : {page:1,count:me.INDEX+2}
+            url : "/wordpress/?json=get_recent_posts",
+            data : {page:me.page,count:me.count}
         }).then(function(result){
             if (result.posts && result.posts.length != 0) {
-                me.postResult = result.posts;
-                me.renderBtns();
+                me.page++;
+                me.postResult.push(result.posts);
+                var _html = me.renderHomePage(result.posts);
+                $('#container').append( _html )
             }
         });
     },
@@ -59,14 +66,15 @@ HomePage.prototype = {
             picnum: current.attachments.length
         };
     },
-    renderHomePage : function() {
+    renderHomePage : function(result) {
         //渲染list
         var renerData = [],
-            me = this;;
-        this.postResult.forEach(function(current,idx){
+            me = this;
+        result.forEach(function(current,idx){
             renerData.push( me.formatHomeData(current,idx));
         });
         var tpl = template(me.TPL, { data :renerData });
+        this.renderBtns();
         return tpl;
     },
     renderBtns : function(){
@@ -94,10 +102,13 @@ HomePage.prototype = {
         panel.delegate('.js-next', 'click', function(e){
             var next = me.INDEX+1;
             var nextDom = me.animateDiv.find('.item[data-index="'+next+'"]');
-            //getMorePosts();
+            if( me.postResult.length - me.INDEX < 10){
+                me.getMorePosts();
+            }
             if(me.INDEX >=0 && next < me.postResult.length && nextDom.length>0){
                 ++me.INDEX;
-                me.renderBtns();
+                //me.renderBtns();
+                typeof me.postResult[me.INDEX-1] == "undefined" ? $('.js-prev').hide() :  $('.js-prev').show();
                 var _x = -me.getTranslateX(me.animateDiv)+nextDom.offset().left -100;
                 me.translates( me.animateDiv, 200, -_x);
             }
@@ -113,13 +124,14 @@ HomePage.prototype = {
             }
         });
 
-        $(window).bind('resize',function(){
-            var currentDom = me.animateDiv.find('.item[data-index="'+me.INDEX+'"]');
-            if(currentDom.offset().left !== 100){
-                var _x = -me.getTranslateX(me.animateDiv) + currentDom.offset().left - 100;
-                me.translates( me.animateDiv, 200, -_x);
-            }
-        });
+        //$(window).bind('resize',function(){
+        //    var currentDom = me.animateDiv.find('.item[data-index="'+me.INDEX+'"]');
+        //
+        //    if(currentDom.offset().left !== 100){
+        //        var _x = -me.getTranslateX(me.animateDiv) + currentDom.offset().left - 100;
+        //        me.translates( me.animateDiv, 200, -_x);
+        //    }
+        //});
 
         nav.bind('click', function (e) {
             thumb.show();
@@ -135,37 +147,37 @@ var ArticalPage = function(){
 };
 ArticalPage.prototype = {
     TPL : ['<div class="back pointer"><div class="wrap"><span class="btn"></span><span class="btn-txt">BACK</span></div></div>',
-        '<div class="main">',
-        '{{if comments.length}}<div class="comments">',
-        '<div class="comments-title">Comments（{{comments.length}})</div>',
-        '<div class="comments-wrapper"><ul class="comments-list">',
-        '{{each comments as item}}',
-        '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
-        '<div class="comment-author">',
-        '<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
-        '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
-        '</div>',
-        '<div class="comment-c"><p>{{item.content}}</p></div>',
-        '</li>',
-        '{{/each}}',
-        '</ul></div>',
-        '</div>{{/if}}',
-        '<div class="artical">',
-        '<div class="top">',
-        '<div class="time">',
-        '<div class="year">{{year}}</div>',
-        '<div class="date">{{day}}/{{month}}</div>',
-        '</div>',
-        '<div class="artical-info">',
-        '<h3 class="title">{{title}}</h3>',
-        '{{each categories as cate}}<div class="classify">{{cate.title}}</div>{{/each}}',
-        '</div>',
-        '</div>',
-        '<div class="artical-content">',
-        '{{#content}}',
-        '</div>',
-        '</div>',
-        '</div>'].join(''),
+           '<div class="main">',
+            '{{if comments.length}}<div class="comments">',
+            '<div class="comments-title">Comments（{{comments.length}})</div>',
+            '<div class="comments-wrapper"><ul class="comments-list">',
+            '{{each comments as item}}',
+            '<li id="comment_{{item.id}}" data-user="{{item.name}}">',
+            '<div class="comment-author">',
+            '<a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
+            '<a href="{{item.url}}" target="_blank" rel="nofollow">{{item.name}}</a>({{item.date}})',
+            '</div>',
+            '<div class="comment-c"><p>{{item.content}}</p></div>',
+            '</li>',
+            '{{/each}}',
+            '</ul></div>',
+            '</div>{{/if}}',
+            '<div class="artical">',
+            '<div class="top">',
+            '<div class="time">',
+            '<div class="year">{{year}}</div>',
+            '<div class="date">{{day}}/{{month}}</div>',
+            '</div>',
+            '<div class="artical-info">',
+            '<h3 class="title">{{title}}</h3>',
+            '{{each categories as cate}}<div class="classify">{{cate.title}}</div>{{/each}}',
+            '</div>',
+            '</div>',
+            '<div class="artical-content">',
+            '{{#content}}',
+            '</div>',
+            '</div>',
+            '</div>'].join(''),
     init : function(opt){
         $('.homepage_body').hide();
         var me = this;
