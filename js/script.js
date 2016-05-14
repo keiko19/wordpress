@@ -53,8 +53,8 @@ HomePage.prototype = {
                 var _html = me.renderHomePage(result.posts);
                 $('#container').html( _html );
             }
+            me.bindEvent();
         });
-        this.bindEvent();
     },
     getMorePosts : function(){
         var me = this;
@@ -248,23 +248,25 @@ ArticalPage.prototype = {
         });
         recentPost.then(function(result){
             if(result && result.post){
-                me.render(result.post)
+                me.render(result)
             }
         });
         this.bindEvent();
     },
-    formatData: function(current){
-        var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
+    formatData: function(result){
+        var d = /(\d*)-(\d*)-(\d*)/.exec(result.post.date);
         return $.extend({},{
             year: d[1].slice(2),
             month: d[2],
-            day: d[3]
-        },current);
+            day: d[3],
+            next_url : result.next_url,
+            previous_url : result.previous_url
+        },result.post);
     },
-    render : function(post) {
+    render : function(result) {
         //渲染list
         var me = this;
-        var renderData = me.formatData(post);
+        var renderData = me.formatData(result);
         var tpl = template(me.TPL, renderData);
         $('.artical_page').html(tpl);
         var articalContent = $('.artical-content');
