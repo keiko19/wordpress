@@ -15,7 +15,7 @@ var scrollFunc = function (e) {
 }
 
 //todo 1.loading 2.copyright 3.window resize 4.on scroll 5.load下一页
-//todo 1.文字右边 2.评论 3.回复 4.回首页 5.上一个下一个
+//todo 1.文字右边 2.评论 3.回复 4.回首页
 var HomePage = function(){
     this.INDEX = 0; //默认从几开始渲染首页
     this.postResult = [];
@@ -292,7 +292,7 @@ ArticalPage.prototype = {
             fetchData({
                 type: "POST",
                 url: "/api/respond/submit_comment/",
-                data: {post_id:me.id, parent:_aid, name:_name, url:_url, content:_content},
+                data: {post_id:me.id, parent:_aid, name:_name, url:"", content:_content},
                 timeout: 30000
             }).done(function(_d){
                 if (_d.status=="ok") { //写一条新评论
