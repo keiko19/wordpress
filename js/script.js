@@ -7,15 +7,15 @@ var HomePage = function(){
 HomePage.prototype = {
     TPL : ['{{each data as item}}<li class="item" data-index="{{item.index}}">',
         '<div class="item-flex-box">',
-            '<div class="image" style="background-url:{{item.attachmentsUrl}};">',
+            '<div class="image js-link" data-link="{{item.url}}" style="background-url:{{item.attachmentsUrl}};">',
                 '<div class="mask"></div>',
                 '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
                 '<div class="picnum">{{item.picnum}}P</div>',
             '</div>',
         '<div class="bottom">',
-        '<div class="brief">{{#item.excerpt}}</div>',
+        '<div class="brief js-artical" data-link="{{item.url}}">{{#item.excerpt}}</div>',
         '<div class="info">',
-        '<p class="title">{{item.title}}</p>',
+        '<p class="title"><a target="_blank" href="{{item.url}}">{{item.title}}</a></p>',
         '<div class="time"><div class="year">{{item.year}}</div><div class="date">{{item.month}}/{{item.day}}</div></div></div>',
         '</div></div></li>{{/each}}'].join(''),
     page : 1,
@@ -137,6 +137,11 @@ HomePage.prototype = {
         });
         thumb.delegate('.js-close', 'click', function(){
             thumb.hide()
+        });
+        
+        $('.js-link').bind('click', function(){
+             var link = $(this).attr("data-link");
+             window.open(link);
         });
     }
 };
