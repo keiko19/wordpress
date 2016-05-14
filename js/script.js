@@ -196,7 +196,7 @@ ArticalPage.prototype = {
                 '</div>',
             '</div>',
             '<div class="artical">',
-            '<div class="top">',
+            '<div class="artical-top">',
             '<div class="time">',
             '<div class="year">{{year}}</div>',
             '<div class="date">{{day}}/{{month}}</div>',
