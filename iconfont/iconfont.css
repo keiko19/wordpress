@@ -280,9 +280,12 @@ only screen and (min-device-pixel-ratio: 2) {
 .comment-post .comment-post-wrapper {padding:0 20px;background-color: #fff;}
 .comment-post textarea {width:100%;margin-top:20px;outline: none;border: none;border-bottom:1px solid #e3e3e3;}
 .comment-post .comment-submit {height:40px; overflow:hidden;float:right;margin-top:10px;}
-.comment-post .comment-submit input {width:40px; height:20px; line-height:20px; text-align:center; color:white; background:#333; font-size:14px; cursor:pointer;}
-.comment-post .comment-submit input:hover {background:#444;}
-.comment-post .comment-submit input:active {background:#222;}
+.comment-post .comment-submit .post-comment {
+    cursor:pointer;
+    background:url(../images/button_post.png) center center no-repeat;
+}
+/*.comment-post .comment-submit a:hover {background:#444;}*/
+/*.comment-post .comment-submit a:active {background:#222;}*/
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
@@ -290,4 +293,5 @@ only screen and (min-device-pixel-ratio: 2) {
     .main .artical-top .right-social .prev{background:url(../images/arrow_left@2x.png);background-size:100%;}
     .main .artical-top .right-social .next{background:url(../images/arrow_next@2x.png);background-size:100%;}
     .back .wrap .btn{background:url(../images/arrow_left@2x.png);background-size:100%;}
+    .comment-post .comment-submit .post-comment{background:url(../images/button_post@2x.png);background-size:100%;}
 }
