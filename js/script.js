@@ -76,7 +76,7 @@ HomePage.prototype = {
         return {
             index : idx,
             title: current.title,
-            url: '#slug='+current.slug,
+            url: current.url,
             excerpt: current.excerpt,
             year: d[1].slice(2),
             month: d[2],
@@ -335,8 +335,8 @@ function initPage(){
         path = location.pathname.slice(localtest+localprefix.length,path.length);
     }
 
-    if(hashObj.slug){
-        articalPage.init({slug : hashObj.slug});
+    if(path.length == 1){
+        articalPage.init({slug : path});
     }else{
         homepage.init();
     }
