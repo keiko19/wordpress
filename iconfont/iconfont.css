@@ -262,7 +262,7 @@ only screen and (min-device-pixel-ratio: 2) {
 
 
 .comments{background-color:#fff;}
-.comments .comments-title{margin-bottom: 20px;text-transform: uppercase;padding:0 20px;}
+.comments .comments-title{margin-bottom: 20px;text-transform: uppercase;}
 
 .comments-wrapper{position: relative;padding-bottom: 50px;}
 .comments-wrapper .comments-list{overflow-y: auto;overflow-x: hidden;}
