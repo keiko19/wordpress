@@ -199,10 +199,18 @@ HomePage.prototype = {
         });
 
         nav.bind('click', function (e) {
-            thumb.show();
+            thumb.fadeIn(500);
+            $('.nav-list').css({
+                width : "35vw",
+                height : "100%"
+            });
         });
         thumb.delegate('.js-close', 'click', function(){
-            thumb.hide()
+            thumb.fadeOut(500);
+            $('.nav-list').css({
+                width : "0",
+                height : "0"
+            });
         });
         
         me.animateDiv.delegate('.js-artical','click', function(){

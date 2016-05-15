@@ -36,21 +36,27 @@
         <div class="nav-list">
             <div class="close js-close iconfont pointer">&#xe605</div>
             <div class="social">
-                <div class="search">
-                    <i class="magnifier iconfont pointer">&#xe600;</i>
-                    <input name="key"/>
+                <div class="search_container">
+                    <div class="search">
+                        <i class="magnifier iconfont pointer">&#xe600;</i>
+                        <input name="key"/>
+                    </div>
                 </div>
-                <ul class="list">
-                    <li>ABOUT</li>
-                    <li>LINKS</li>
-                    <li>ACTIVITY</li>
-                </ul>
+                <div class="list">
+                    <p>ABOUT</p>
+                    <p>LINKS</p>
+                </div>
+                <div class="olds">
+                    <p><a href=""></a></p>
+                    <p></p>
+                </div>
+                <div class="we_chat">
+                    <div class="twoCode"></div>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
             </div>
-            <ul class="thumb-list">
-                <li>DIARY</li>
-                <li>LINKS</li>
-                <li>ACTIVITY</li>
-            </ul>
         </div>
     </div>
 </div>
