@@ -54,6 +54,11 @@
         </div>
     </div>
     <!-- 导航 end -->
+    <div class="loading">
+        <div class="master"></div>
+        <div class="load"></div>
+        <div class="blog-desc"></div>
+    </div>
 </div>
 <div class="artical_page"></div>
 <?php get_footer(); ?>
