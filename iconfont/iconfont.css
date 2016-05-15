@@ -340,6 +340,7 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 }
 
 .loading_tips{
+    visibility: hidden;
     z-index: 99;
     position: absolute;
     top:50%;

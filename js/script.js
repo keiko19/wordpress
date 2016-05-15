@@ -80,7 +80,7 @@ HomePage.prototype = {
                 me.postResult = me.postResult.concat(result.posts);
                 var _html = me.renderHomePage(result.posts,start);
                 $('#container').append( _html );
-                loading_tips.hide();
+                loading_tips.css("visibility","hidden");
             }
         });
     },
@@ -143,8 +143,8 @@ HomePage.prototype = {
                 me.translates( me.animateDiv, 200, -_x);
             }
 
-        if(next ==me.postResult.length && me.isLoading){
-            loading_tips.show();
+        if(next == me.postResult.length && me.isLoading){
+            loading_tips.css("visibility","visible");
         }
     },
     prevClick : function(){
