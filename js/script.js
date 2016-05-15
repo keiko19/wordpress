@@ -5,16 +5,16 @@ var scrollFunc = function (e) {
     if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
         //当滑轮向上滚动时 e.wheelDelta > 0
         //当滑轮向下滚动时 e.wheelDelta < 0
-        direct = e.wheelDelta;
+        direct = event.wheelDelta/120;
     } else if (e.detail) {  //Firefox滑轮事件
         //当滑轮向上滚动时 e.detail > 0
         //当滑轮向下滚动时 e.detail < 0
-        direct = e.detail;
+        direct = -event.detail/3;
     }
     return direct;
 }
 
-//todo 1.loading 2.copyright 3.window resize 4.on scroll 5.load下一页
+//todo 1.loading 2.copyright  4.on scroll
 //todo 1.文字右边 2.评论 3.回复 4.回首页
 var HomePage = function(){
     this.INDEX = 0; //默认从几开始渲染首页
@@ -155,14 +155,15 @@ HomePage.prototype = {
         var lastTime = null;
         $(window).bind('mousewheel', function(e){
             var time = new Date();
-            if(lastTime && time-lastTime < 1000){
+            if(lastTime && time-lastTime < 200){
                 return false;
             }
             lastTime = time;
             var direct = scrollFunc(e);
+            console.log(direct)
             if(direct < 0){
                 me.nextClick();
-            }else{
+            }else if(direct > 0){
                 me.prevClick();
             }
         });
@@ -197,7 +198,6 @@ ArticalPage.prototype = {
             '<div class="right-box">',
                 '<div class="right-share">',
                     '<div class="right-social">',
-                        '<i class="share iconfont pointer">&#xe601;</i>',
                         '{{if next_url}}<a class="prev-artical pointer" href="{{next_url}}"></a>{{/if}}',
                         '{{if previous_url}}<a class="next-artical pointer" href="{{previous_url}}"></a>{{/if}}',
                     '</div>',
@@ -295,9 +295,9 @@ ArticalPage.prototype = {
             fetchData({
                 type: "POST",
                 url: "/api/respond/submit_comment/",
-                data: {post_id:me.id, parent:_aid, name:_name, url:"", content:_content},
+                data: {post_id:me.id, email:"",parent:_aid, name:_name, url:"", content:_content},
                 timeout: 30000
-            }).done(function(_d){
+            }).then(function(_d){
                 if (_d.status=="ok") { //写一条新评论
                     var tpl = template(me.commentTpl, _d);
                     $(".comments-list").prepend(tpl);

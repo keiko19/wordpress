@@ -215,7 +215,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .right-box .comments{
     flex : 1;
     -webkit-flex: 1;
-    overflow: hidden;
+    overflow-y: auto;
 }
 .pointer{cursor:pointer;}
 .back{position:fixed;height:100%;width:100px;}
@@ -276,7 +276,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .comments-wrapper .comments-list .comment-c a {color:#999;}
 .comments-wrapper .comments-list .comment-c a:hover {color:#ccc;}
 .comments .comment-reply {}
-.comment-post {position:absolute; right:0; bottom:0;width:100%;background-color:#fff;}
+.comment-post {width:100%;background-color:#fff;}
 .comment-post .comment-post-wrapper {padding:0 20px;background-color: #fff;}
 .comment-post textarea {width:100%;margin-top:20px;outline: none;border: none;border-bottom:1px solid #e3e3e3;}
 .comment-post .comment-submit .post-comment{
