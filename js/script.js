@@ -13,7 +13,8 @@ var scrollFunc = function (e) {
     }
     return direct;
 }
-
+var loading = $('.loading');
+var loading_tips = $('.loading_tips');
 //todo 1.loading 2.copyright  4.on scroll
 var HomePage = function(){
     this.INDEX = 0; //默认从几开始渲染首页
@@ -48,21 +49,22 @@ HomePage.prototype = {
             data : {page:me.page,count:count}
         });
         recentPost.then(function(result){
-            $('.homepage_body').show();
-            if (result.posts && result.posts.length != 0) {
-                index > me.count ? me.page = initPage+1 : me.page++;
-                me.postResult = result.posts;
-                var _html = me.renderHomePage(result.posts,0);
-                $('#container').html( _html );
-
-                if( index >0 && me.postResult[index] && me.postResult[index]["id"]==id){
-                    me.scrollToTarget(index);
-                    me.INDEX = index;
-                    localStorage.setItem('MIRAGE_HOME_INDEX',0);
-                    localStorage.setItem('MIRAGE_HOME_ID',"");
+            loading.fadeOut(800,function(){
+                $('.homepage_body').show();
+                if (result.posts && result.posts.length != 0) {
+                    index > me.count ? me.page = initPage+1 : me.page++;
+                    me.postResult = result.posts;
+                    var _html = me.renderHomePage(result.posts,0);
+                    $('#container').html( _html );
+                    if( index >0 && me.postResult[index] && me.postResult[index]["id"]==id){
+                        me.scrollToTarget(index);
+                        me.INDEX = index;
+                        localStorage.setItem('MIRAGE_HOME_INDEX',0);
+                        localStorage.setItem('MIRAGE_HOME_ID',"");
+                    }
                 }
-            }
-            me.bindEvent();
+                me.bindEvent();
+            });
         });
     },
     getMorePosts : function(){
@@ -77,7 +79,8 @@ HomePage.prototype = {
                 me.isLoading = false;
                 me.postResult = me.postResult.concat(result.posts);
                 var _html = me.renderHomePage(result.posts,start);
-                $('#container').append( _html )
+                $('#container').append( _html );
+                loading_tips.hide();
             }
         });
     },
@@ -139,6 +142,10 @@ HomePage.prototype = {
                 var _x = -me.getTranslateX(me.animateDiv)+nextDom.offset().left -100;
                 me.translates( me.animateDiv, 200, -_x);
             }
+
+        if(next ==me.postResult.length && me.isLoading){
+            loading_tips.show();
+        }
     },
     prevClick : function(){
         var me = this;
@@ -275,10 +282,12 @@ ArticalPage.prototype = {
             url : "?json=get_post&slug="+me.slug
         });
         recentPost.then(function(result){
-            if(result && result.post){
-                me.id=result.post.id;
-                me.render(result)
-            }
+            loading.fadeOut(800,function(){
+                if(result && result.post){
+                    me.id=result.post.id;
+                    me.render(result)
+                }
+            });
         });
         this.bindEvent();
     },

@@ -339,6 +339,19 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
     color: #999;
 }
 
+.loading_tips{
+    z-index: 99;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    display: inline-block;
+    height: 56px;
+    width: 56px;
+    background: url("../images/loading.gif") center center no-repeat;
+    background-size:100%;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
