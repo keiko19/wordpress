@@ -307,8 +307,9 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 }
 
 .loading .master{
-    flex-basis: 30%;
-    -webkit-flex-basis: 30%;
+    padding-top: 12%;
+    flex-basis: 28%;
+    -webkit-flex-basis: 28%;
     text-align: center;
 }
 .loading .master .master-img{
