@@ -15,7 +15,6 @@ var scrollFunc = function (e) {
 }
 
 //todo 1.loading 2.copyright  4.on scroll
-//todo  2.评论 3.回复
 var HomePage = function(){
     this.INDEX = 0; //默认从几开始渲染首页
     this.postResult = [];
@@ -219,8 +218,8 @@ ArticalPage.prototype = {
             '<div class="right-box">',
                 '<div class="right-share">',
                     '<div class="right-social">',
-                        '{{if next_url}}<a class="prev-artical pointer" href="{{next_url}}"></a>{{/if}}',
-                        '{{if previous_url}}<a class="next-artical pointer" href="{{previous_url}}"></a>{{/if}}',
+                        '{{if next_url}}<a class="prev-artical pointer" title="上一篇文章" href="{{next_url}}"></a>{{/if}}',
+                        '{{if previous_url}}<a class="next-artical pointer" title="下一篇文章" href="{{previous_url}}"></a>{{/if}}',
                     '</div>',
                 '</div>',
                 '<div class="comments">',
