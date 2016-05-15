@@ -73,7 +73,7 @@ HomePage.prototype = {
             data : {page:me.page,count:me.count}
         }).then(function(result){
             if (result.posts && result.posts.length != 0) {
-                var start = me.postResult.length -1;
+                var start = me.postResult.length;
                 me.page++;
                 me.isLoading = false;
                 me.postResult = me.postResult.concat(result.posts);
