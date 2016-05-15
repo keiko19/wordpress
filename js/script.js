@@ -155,6 +155,9 @@ HomePage.prototype = {
     },
     scrollToTarget : function(index){
         var current = this.animateDiv.find('.item[data-index="'+index+'"]');
+        if(!current){
+            return false;
+        }
         var _x = -this.getTranslateX(this.animateDiv)+current.offset().left -100;
         this.translates( this.animateDiv, 200, -_x);
     },
