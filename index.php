@@ -33,8 +33,8 @@
         <!-- 导航 start -->
     <div class="thunm js-thumb">
         <div class="main-mask"></div>
+        <div class="close js-close iconfont pointer">&#xe605</div>
         <div class="nav-list">
-            <div class="close js-close iconfont pointer">&#xe605</div>
             <div class="social">
                 <div class="search_container">
                     <div class="search">

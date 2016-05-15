@@ -37,7 +37,10 @@ HomePage.prototype = {
         '</div></div></li>{{/each}}'].join(''),
     page : 1,
     count : 20,
+    params : {},
+    isLoadAll : false,
     isLoading : false,
+    url : "/?json=get_recent_posts",
     init : function(){
         var me = this;
         var index = parseInt(localStorage.getItem('MIRAGE_HOME_INDEX'));
@@ -45,7 +48,7 @@ HomePage.prototype = {
         var initPage = Math.ceil( (index*10000)/(me.count*10000) ) + 1;
         var count = index > me.count ? (me.count*10000*initPage)/10000 : me.count;
         var recentPost = fetchData({
-            url : "/?json=get_recent_posts",
+            url : me.url,
             data : {page:me.page,count:count}
         });
         recentPost.then(function(result){
@@ -70,11 +73,14 @@ HomePage.prototype = {
     getMorePosts : function(){
         var me = this;
         fetchData({
-            url : "/?json=get_recent_posts",
-            data : {page:me.page,count:me.count}
+            url : me.url,
+            data : $.extend( {page:me.page,count:me.count}, me.params )
         }).then(function(result){
             if (result.posts && result.posts.length != 0) {
                 var start = me.postResult.length;
+                if(result.pages == me.page){
+                    me.isLoadAll = true;
+                }
                 me.page++;
                 me.isLoading = false;
                 me.postResult = me.postResult.concat(result.posts);
@@ -131,13 +137,13 @@ HomePage.prototype = {
         var me = this;
             var next = me.INDEX+1;
             var nextDom = me.animateDiv.find('.item[data-index="'+next+'"]');
-            if( me.postResult.length - me.INDEX < 10 && !me.isLoading && me.type !== "search"){
+            if( me.postResult.length - me.INDEX < 10 && !me.isLoading && !me.isLoadAll){
                 me.isLoading = true;
                 me.getMorePosts();
             }
             if(me.INDEX >=0 && next < me.postResult.length && nextDom.length>0){
                 ++me.INDEX;
-                //me.renderBtns();
+                me.isLoadAll && me.renderBtns();
                 typeof me.postResult[me.INDEX-1] == "undefined" ? $('.js-prev').hide() :  $('.js-prev').show();
                 var _x = -me.getTranslateX(me.animateDiv)+nextDom.offset().left -100;
                 me.translates( me.animateDiv, 200, -_x);
@@ -167,53 +173,39 @@ HomePage.prototype = {
         var _x = -this.getTranslateX(this.animateDiv)+current.offset().left -100;
         this.translates( this.animateDiv, 200, -_x);
     },
-    getSearch : function(search){
-        fetchData({
-            url : 'json=get_search_results&search='+decodeURIComponent(search)
-        }).then(function(result){
-            //loading.fadeOut(800,function(){
-            //    $('.homepage_body').show();
-            //    if (result.posts && result.posts.length != 0) {
-            //        index > me.count ? me.page = initPage+1 : me.page++;
-            //        me.postResult = result.posts;
-            //        var _html = me.renderHomePage(result.posts,0);
-            //        $('#container').html( _html );
-            //        if( index >0 && me.postResult[index] && me.postResult[index]["id"]==id){
-            //            me.scrollToTarget(index);
-            //            me.INDEX = index;
-            //            localStorage.setItem('MIRAGE_HOME_INDEX',0);
-            //            localStorage.setItem('MIRAGE_HOME_ID',"");
-            //        }
-            //    }
-            //    me.bindEvent();
-            //});
-        })
-    },
     reset : function(){
-        me.INDEX = 0;
-        me.page = 1;
+        this.INDEX = 0;
+        this.page = 1;
     },
     renderSearch : function(search){
         var me = this;
         me.hideThumb();
-        loading_tips.show();
+        me.reset();
+        loading_tips.css("visibility","visible");
         fetchData({
-            url : '?json=get_search_results&search='+decodeURIComponent(search)
+            url : '?json=get_search_results',
+            data : {page:me.page,count:me.count,search:decodeURIComponent(search)}
         }).then(function(result){
-            loading_tips.hide();
+            loading_tips.css("visibility","hidden");
             me.animateDiv.html();
             me.translates( me.animateDiv, 200, 0);
             if (result.posts && result.posts.length != 0) {
+                me.page++;
+                me.url = "?json=get_search_results";
+                me.params.search = search;
+                if(result.pages == 1){
+                    me.isLoadAll = true;
+                }
                 me.postResult = result.posts;
                 var _html = me.renderHomePage(result.posts,0);
                 $('#container').html( _html );
-                me.type = "search";
+                me.renderBtns();
             }
         })
     },
     hideThumb : function(){
         var thumb = $('.js-thumb');
-        thumb.fadeOut(500);
+        thumb.fadeOut(300);
         $('.nav-list').css({
             "transform":"translate(100%,-100%)"
         });
@@ -249,13 +241,15 @@ HomePage.prototype = {
         });
 
         nav.bind('click', function (e) {
-            thumb.fadeIn(500);
+            nav.hide();
+            thumb.fadeIn(300);
             $('.nav-list').css({
                 "transform":"translate(0,0)"
             });
         });
         thumb.delegate('.js-close', 'click', function(){
             me.hideThumb();
+            nav.show();
         }).delegate('input[name="key"]','keyup', function(e){
             if(e.keyCode == 13){
                 var value = $('input[name="key"]').val();
