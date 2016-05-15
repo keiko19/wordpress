@@ -43,4 +43,15 @@
             }
         endif;
         add_action('after_setup_theme', 'mirageyard_setup');
+
+        function url_filtered($fields)
+        {
+            if(isset($fields['url']))
+            unset($fields['url']);
+            if(isset($fields['email']))
+            unset($fields['email']);
+            return $fields;
+        }
+
+        add_filter('comment_form_default_fields', 'url_filtered');
 ?>
