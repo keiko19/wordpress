@@ -53,12 +53,12 @@
             </ul>
         </div>
     </div>
-    <!-- 导航 end -->
-    <div class="loading">
-        <div class="master"></div>
-        <div class="load"><div class="load-img"></div></div>
-        <div class="blog-desc"></div>
-    </div>
 </div>
 <div class="artical_page"></div>
+        <!-- loading  -->
+<div class="loading">
+<div class="master"></div>
+<div class="load"><div class="load-img"></div></div>
+<div class="blog-desc"></div>
+</div>
 <?php get_footer(); ?>
