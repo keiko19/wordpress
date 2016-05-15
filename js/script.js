@@ -265,8 +265,8 @@ ArticalPage.prototype = {
             '</div>',
             '</div>',
             '</div>'].join(''),
-    commentTpl : ['<li id="comment_{{id}}" data-user="{{name}}"><div class="comment-author"><a href="javascript:void(0);" class="reply iconfont">&#xe602;</a>',
-        '<a href="{{url}}" target="_blank" rel="nofollow">{{name}}</a>({{date}})</div><div class="comment-c"><p></p><p>{{content}}</p><p></p></div></li>'].join(''),
+    commentTpl : ['<li id="comment_{{id}}" data-user="{{name}}"><div class="comment-author"><a href="javascript:void(0);" data-id="{{id}}" data-name="{{name}}"  class="js-replay reply iconfont">&#xe602;</a>',
+        '<a href="{{url}}" target="_blank" rel="nofollow">{{name}}</a>({{date}})</div><div class="comment-c"><p></p><p>{{#content}}</p><p></p></div></li>'].join(''),
     init : function(opt){
         $('.homepage_body').hide();
         var me = this;
