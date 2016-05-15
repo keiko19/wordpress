@@ -43,12 +43,12 @@
                     </div>
                 </div>
                 <div class="list">
-                    <p><a href="">ABOUT</a></p>
-                    <p><a href="">LINKS</a></p>
+                    <p><a href="http://miragetrip.com/old/old/?page_id=159" target="_blank">ABOUT</a></p>
+                    <p><a href="http://miragetrip.com/old/old/?page_id=1203" target="_blank">LINKS</a></p>
                 </div>
                 <div class="olds">
-                    <p><a href="">OLD Miragetrip</a></p>
-                    <p><a href="">(2006-2012)</a></p>
+                    <p><a href="http://miragetrip.com/old/" target="_blank">OLD MIRAGETRIP </a></p>
+                    <p><a href="http://miragetrip.com/old/" target="_blank">(2006-2012)</a></p>
                 </div>
                 <div class="we_chat">
                     <div class="twoCode"></div>
@@ -65,7 +65,7 @@
 <div class="loading">
     <div class="master"><span class="master-img"></span></div>
     <div class="load"><span class="load-img"></span></div>
-    <div class="blog-desc">DESIGHED BY EVACUEE</div>
+    <div class="blog-desc">DESIGNs wED BY EVACUEE</div>
 </div>
 <div class="loading_tips"></div>
 <?php get_footer(); ?>
