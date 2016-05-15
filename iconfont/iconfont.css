@@ -209,8 +209,8 @@ only screen and (min-device-pixel-ratio: 2) {
     flex-basis : 40px;
 }
 .right-box .comment-post{
-    -webkit-flex-basis : 100px;
-    flex-basis : 100px;
+    -webkit-flex-basis : 164px;
+    flex-basis : 164px;
 }
 .right-box .comments{
     flex : 1;
