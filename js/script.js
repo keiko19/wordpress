@@ -65,7 +65,7 @@ HomePage.prototype = {
             if (result.posts && result.posts.length != 0) {
                 me.page++;
                 me.isLoading = false;
-                me.postResult.push(result.posts);
+                me.postResult = me.postResult.concat(result.posts);
                 var _html = me.renderHomePage(result.posts);
                 $('#container').append( _html )
             }
@@ -90,10 +90,11 @@ HomePage.prototype = {
         var renerData = [],
             me = this;
         result.forEach(function(current,idx){
-            renerData.push( me.formatHomeData(current,idx));
+            var index = idx + (me.page-2)*me.count;
+            renerData.push( me.formatHomeData(current,index));
         });
         var tpl = template(me.TPL, { data :renerData });
-        this.renderBtns();
+        //this.renderBtns();
         return tpl;
     },
     renderBtns : function(){
@@ -167,7 +168,9 @@ HomePage.prototype = {
         });
 
         $(window).bind('resize',function(){
-            me.animateDiv.hide().show()
+            var current = me.animateDiv.find('.item[data-index="'+me.INDEX+'"]');
+            var _x = -me.getTranslateX(me.animateDiv)+current.offset().left -100;
+            me.translates( me.animateDiv, 200, -_x);
         });
 
         nav.bind('click', function (e) {
