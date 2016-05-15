@@ -119,8 +119,8 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
     width: 100%;
 }
 .center .prev .btn-bottom,.center .next .btn-bottom{
-    -webkit-flex-basis : 110px;
-    flex-basis : 110px;
+    -webkit-flex-basis : 140px;
+    flex-basis : 140px;
 }
 .center .prev .wrap,.center .next .wrap{position:absolute;top:50%;transform:translate(0,-50%);height:12px;width:100%;}
 .center .prev{left:0}
