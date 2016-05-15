@@ -308,15 +308,19 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .loading .master{
-    flex-basis: 40%;
-    -webkit-flex-basis: 40%;
-    background: url("../images/logo.png") center center no-repeat;
+    flex-basis: 30%;
+    -webkit-flex-basis: 30%;
+    background: url("../images/logo.png") center bottom no-repeat;
 }
 .loading .load{
-    flex-basis: 40%;
-    -webkit-flex-basis: 40%;
+    flex: 1;
+    -webkit-flex: 1;
+    background: url("../images/loading.png") center center no-repeat;
 }
 .loading .blog-desc{
-    flex-basis: 20%;
-    -webkit-flex-basis: 20%;
+    flex-basis: 30px;
+    -webkit-flex-basis: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
 }
