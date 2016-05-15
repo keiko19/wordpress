@@ -277,7 +277,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .comments-wrapper .comments-list .comment-c a:hover {color:#ccc;}
 .comments .comment-reply {}
 .comment-post {width:100%;background-color:#fff;}
-.comment-post .comment-post-wrapper {padding:0 20px;background-color: #fff;}
+.comment-post .comment-post-wrapper {padding-right:20px;background-color: #fff;}
 .comment-post textarea {width:100%;margin-top:20px;outline: none;border: none;border-bottom:1px solid #e3e3e3;}
 .comment-post .comment-submit .post-comment{
     display: inline-block;

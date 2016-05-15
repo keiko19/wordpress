@@ -5,7 +5,7 @@ var scrollFunc = function (e) {
     if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
         //当滑轮向上滚动时 e.wheelDelta > 0
         //当滑轮向下滚动时 e.wheelDelta < 0
-        direct = event.wheelDelta/120;
+        direct = event.wheelDelta/60;
     } else if (e.detail) {  //Firefox滑轮事件
         //当滑轮向上滚动时 e.detail > 0
         //当滑轮向下滚动时 e.detail < 0
@@ -161,6 +161,7 @@ HomePage.prototype = {
         var _x = -this.getTranslateX(this.animateDiv)+current.offset().left -100;
         this.translates( this.animateDiv, 200, -_x);
     },
+
     bindEvent : function(){
         var me = this;
         var panel = $('#panel');
@@ -284,6 +285,7 @@ ArticalPage.prototype = {
     },
     formatData: function(result){
         var d = /(\d*)-(\d*)-(\d*)/.exec(result.post.date);
+        result.post.comments && result.post.comments.length > 0 && result.post.comments.reverse();
         return $.extend({},{
             year: d[1].slice(2),
             month: d[2],
