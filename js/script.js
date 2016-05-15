@@ -201,15 +201,13 @@ HomePage.prototype = {
         nav.bind('click', function (e) {
             thumb.fadeIn(500);
             $('.nav-list').css({
-                width : "35vw",
-                height : "100%"
+                "transform":"translate(0,0)"
             });
         });
         thumb.delegate('.js-close', 'click', function(){
             thumb.fadeOut(500);
             $('.nav-list').css({
-                width : "0",
-                height : "0"
+                "transform":"translate(100%,-100%)"
             });
         });
         
