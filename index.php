@@ -53,7 +53,7 @@
                 <div class="we_chat">
                     <div class="twoCode"></div>
                     <p>0.9(ALPHA)</p>
-                    <p>DESIGNED BY EVACUEE/CODED BY ESSE/POWERED BY WORDPRESS</p>
+                    <p>DESIGNED BY EVACUEE/CODED BY ESSE</p>
                     <p>© 2005-2016 MIRAGETRIP.COM. ALL RIGHTS RESERVED.</p>
                 </div>
             </div>
