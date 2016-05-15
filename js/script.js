@@ -15,7 +15,7 @@ var scrollFunc = function (e) {
 }
 
 //todo 1.loading 2.copyright  4.on scroll
-//todo 1.文字右边 2.评论 3.回复 4.回首页
+//todo  2.评论 3.回复
 var HomePage = function(){
     this.INDEX = 0; //默认从几开始渲染首页
     this.postResult = [];
@@ -24,15 +24,15 @@ var HomePage = function(){
 HomePage.prototype = {
     TPL : ['{{each data as item}}<li class="item" data-index="{{item.index}}">',
         '<div class="item-flex-box">',
-            '<div class="image pointer js-artical" data-link="{{item.url}}" style="background:url(&quot;{{item.attachmentsUrl}}&quot) center center no-repeat;background-size:cover;">',
+            '<div class="image pointer js-artical" data-id="{{item.id}}" data-link="{{item.url}}" style="background:url(&quot;{{item.attachmentsUrl}}&quot) center center no-repeat;background-size:cover;">',
                 '<div class="mask"></div>',
-                '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link" target="_blank" href="{{item.url}}">enter</a></div>',
+                '<div class="enter pointer" data-src="{{item.url}}"><a class="enter-link js-artical" href="javascript:void(0)" data-id="{{item.id}}" data-link="{{item.url}}">enter</a></div>',
                 '<div class="picnum">{{item.picnum}}P</div>',
             '</div>',
         '<div class="bottom">',
-        '<div class="brief pointer js-artical" data-link="{{item.url}}">{{#item.excerpt}}</div>',
+        '<div class="brief pointer js-artical" data-id="{{item.id}}" data-link="{{item.url}}">{{#item.excerpt}}</div>',
         '<div class="info">',
-        '<p class="title"><a target="_blank" href="{{item.url}}">{{item.title}}</a></p>',
+        '<p class="title"><a class="js-artical" href="javascript:void(0)" data-id="{{item.id}}" data-link="{{item.url}}">{{item.title}}</a></p>',
         '<div class="time"><div class="year">{{item.year}}</div><div class="date">{{item.month}}/{{item.day}}</div></div></div>',
         '</div></div></li>{{/each}}'].join(''),
     page : 1,
@@ -40,18 +40,28 @@ HomePage.prototype = {
     isLoading : false,
     init : function(){
         var me = this;
+        var index = parseInt(localStorage.getItem('MIRAGE_HOME_INDEX'));
+        var id = localStorage.getItem('MIRAGE_HOME_ID');
+        var initPage = Math.ceil( (index*10000)/(me.count*10000) ) + 1;
+        var count = index > me.count ? (me.count*10000*initPage)/10000 : me.count;
         var recentPost = fetchData({
             url : "/?json=get_recent_posts",
-            data : {page:me.page,count:me.count}
-            //data : {page:1,count:INDEX+2}
+            data : {page:me.page,count:count}
         });
         recentPost.then(function(result){
             $('.homepage_body').show();
             if (result.posts && result.posts.length != 0) {
-                me.page++;
+                index > me.count ? me.page = initPage+1 : me.page++;
                 me.postResult = result.posts;
-                var _html = me.renderHomePage(result.posts);
+                var _html = me.renderHomePage(result.posts,0);
                 $('#container').html( _html );
+
+                if( index >0 && me.postResult[index] && me.postResult[index]["id"]==id){
+                    me.scrollToTarget(index);
+                    me.INDEX = index;
+                    //localStorage.removeItem('MIRAGE_HOME_INDEX');
+                    //localStorage.removeItem('MIRAGE_HOME_ID');
+                }
             }
             me.bindEvent();
         });
@@ -63,10 +73,11 @@ HomePage.prototype = {
             data : {page:me.page,count:me.count}
         }).then(function(result){
             if (result.posts && result.posts.length != 0) {
+                var start = me.postResult.length -1;
                 me.page++;
                 me.isLoading = false;
                 me.postResult = me.postResult.concat(result.posts);
-                var _html = me.renderHomePage(result.posts);
+                var _html = me.renderHomePage(result.posts,start);
                 $('#container').append( _html )
             }
         });
@@ -74,6 +85,7 @@ HomePage.prototype = {
     formatHomeData : function(current,idx){
         var d = /(\d*)-(\d*)-(\d*)/.exec(current.date);
         return {
+            id : current.id,
             index : idx,
             title: current.title,
             url: current.url,
@@ -85,12 +97,12 @@ HomePage.prototype = {
             picnum: current.attachments.length
         };
     },
-    renderHomePage : function(result) {
+    renderHomePage : function(result,start) {
         //渲染list
         var renerData = [],
             me = this;
         result.forEach(function(current,idx){
-            var index = idx + (me.page-2)*me.count;
+            var index = idx + start;
             renerData.push( me.formatHomeData(current,index));
         });
         var tpl = template(me.TPL, { data :renerData });
@@ -141,6 +153,11 @@ HomePage.prototype = {
                 me.translates( me.animateDiv, 200, -_x);
             }
     },
+    scrollToTarget : function(index){
+        var current = this.animateDiv.find('.item[data-index="'+index+'"]');
+        var _x = -this.getTranslateX(this.animateDiv)+current.offset().left -100;
+        this.translates( this.animateDiv, 200, -_x);
+    },
     bindEvent : function(){
         var me = this;
         var panel = $('#panel');
@@ -169,9 +186,7 @@ HomePage.prototype = {
         });
 
         $(window).bind('resize',function(){
-            var current = me.animateDiv.find('.item[data-index="'+me.INDEX+'"]');
-            var _x = -me.getTranslateX(me.animateDiv)+current.offset().left -100;
-            me.translates( me.animateDiv, 200, -_x);
+            me.scrollToTarget(me.INDEX);
         });
 
         nav.bind('click', function (e) {
@@ -183,7 +198,10 @@ HomePage.prototype = {
         
         me.animateDiv.delegate('.js-artical','click', function(){
              var link = $(this).attr("data-link");
-             window.open(link);
+             var id = $(this).attr("data-id");
+             localStorage.setItem('MIRAGE_HOME_INDEX',me.INDEX);
+             localStorage.setItem('MIRAGE_HOME_ID',id);
+             window.location.href = link;
         });
 
     }
@@ -313,9 +331,6 @@ ArticalPage.prototype = {
     },
     bindEvent : function(){
         var me = this;
-        $('.js-backHome').bind('click', function(){
-            history.go(-1);
-        });
 
         $('.artical_page').delegate('.js-replay', 'click', function(e){
             var name = $(e.target).attr('data-name');
@@ -332,10 +347,11 @@ ArticalPage.prototype = {
             }
         }).delegate('.js-post','click', function(){
            me.post();
+        }).delegate('.js-backHome','click',function(){
+            window.location.href = HOST;
         });
     }
 }
-
 var homepage = new HomePage();
 var articalPage = new ArticalPage();
 //解析url
