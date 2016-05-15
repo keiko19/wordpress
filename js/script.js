@@ -131,7 +131,7 @@ HomePage.prototype = {
         var me = this;
             var next = me.INDEX+1;
             var nextDom = me.animateDiv.find('.item[data-index="'+next+'"]');
-            if( me.postResult.length - me.INDEX < 10 && !me.isLoading){
+            if( me.postResult.length - me.INDEX < 10 && !me.isLoading && me.type !== "search"){
                 me.isLoading = true;
                 me.getMorePosts();
             }
@@ -167,7 +167,57 @@ HomePage.prototype = {
         var _x = -this.getTranslateX(this.animateDiv)+current.offset().left -100;
         this.translates( this.animateDiv, 200, -_x);
     },
-
+    getSearch : function(search){
+        fetchData({
+            url : 'json=get_search_results&search='+decodeURIComponent(search)
+        }).then(function(result){
+            //loading.fadeOut(800,function(){
+            //    $('.homepage_body').show();
+            //    if (result.posts && result.posts.length != 0) {
+            //        index > me.count ? me.page = initPage+1 : me.page++;
+            //        me.postResult = result.posts;
+            //        var _html = me.renderHomePage(result.posts,0);
+            //        $('#container').html( _html );
+            //        if( index >0 && me.postResult[index] && me.postResult[index]["id"]==id){
+            //            me.scrollToTarget(index);
+            //            me.INDEX = index;
+            //            localStorage.setItem('MIRAGE_HOME_INDEX',0);
+            //            localStorage.setItem('MIRAGE_HOME_ID',"");
+            //        }
+            //    }
+            //    me.bindEvent();
+            //});
+        })
+    },
+    reset : function(){
+        me.INDEX = 0;
+        me.page = 1;
+    },
+    renderSearch : function(search){
+        var me = this;
+        me.hideThumb();
+        loading_tips.show();
+        fetchData({
+            url : '?json=get_search_results&search='+decodeURIComponent(search)
+        }).then(function(result){
+            loading_tips.hide();
+            me.animateDiv.html();
+            me.translates( me.animateDiv, 200, 0);
+            if (result.posts && result.posts.length != 0) {
+                me.postResult = result.posts;
+                var _html = me.renderHomePage(result.posts,0);
+                $('#container').html( _html );
+                me.type = "search";
+            }
+        })
+    },
+    hideThumb : function(){
+        var thumb = $('.js-thumb');
+        thumb.fadeOut(500);
+        $('.nav-list').css({
+            "transform":"translate(100%,-100%)"
+        });
+    },
     bindEvent : function(){
         var me = this;
         var panel = $('#panel');
@@ -205,10 +255,12 @@ HomePage.prototype = {
             });
         });
         thumb.delegate('.js-close', 'click', function(){
-            thumb.fadeOut(500);
-            $('.nav-list').css({
-                "transform":"translate(100%,-100%)"
-            });
+            me.hideThumb();
+        }).delegate('input[name="key"]','keyup', function(e){
+            if(e.keyCode == 13){
+                var value = $('input[name="key"]').val();
+                me.renderSearch( $.trim(value) );
+            }
         });
         
         me.animateDiv.delegate('.js-artical','click', function(){
@@ -218,6 +270,7 @@ HomePage.prototype = {
              localStorage.setItem('MIRAGE_HOME_ID',id);
              window.location.href = link;
         });
+
 
     }
 };
