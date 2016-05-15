@@ -309,14 +309,22 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .loading .master{
     flex-basis: 30%;
     -webkit-flex-basis: 30%;
+    text-align: center;
+}
+.loading .master .master-img{
+    display: inline-block;
+    height: 62px;
+    width: 62px;
     background: url("../images/logo.png") center bottom no-repeat;
 }
+
 .loading .load{
     flex: 1;
     -webkit-flex: 1;
     text-align: center;
 }
 .loading .load .load-img{
+    display: inline-block;
     height: 56px;
     width: 56px;
     background: url("../images/loading.gif") center center no-repeat;
@@ -344,5 +352,5 @@ only screen and (min-device-pixel-ratio: 2) {
     .main .right-social .next-artical{background:url(../images/arrow_next@2x.png) center center no-repeat;background-size:100%;}
     .back .wrap .btn{background:url(../images/arrow_left@2x.png) center center no-repeat;background-size:100%;}
     .comment-post .comment-submit .post-comment{background:url(../images/button_post@2x.png) center center no-repeat;background-size:100%;}
-    .loading .master{background: url("../images/logo@2x.png") center bottom no-repeat;background-size:100%;}
+    .loading .master .master-img{background: url("../images/logo@2x.png") center bottom no-repeat;background-size:100%;}
 }

@@ -57,8 +57,8 @@
 <div class="artical_page"></div>
         <!-- loading  -->
 <div class="loading">
-<div class="master"></div>
-<div class="load"><div class="load-img"></div></div>
-<div class="blog-desc"></div>
+<div class="master"><span class="master-img"></span></div>
+<div class="load"><span class="load-img"></span></div>
+<div class="blog-desc">DESIGHED BY EVACUEE</div>
 </div>
 <?php get_footer(); ?>
