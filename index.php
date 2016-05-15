@@ -56,7 +56,7 @@
     <!-- 导航 end -->
     <div class="loading">
         <div class="master"></div>
-        <div class="load"></div>
+        <div class="load"><div class="load-img"></div></div>
         <div class="blog-desc"></div>
     </div>
 </div>
