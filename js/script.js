@@ -59,8 +59,8 @@ HomePage.prototype = {
                 if( index >0 && me.postResult[index] && me.postResult[index]["id"]==id){
                     me.scrollToTarget(index);
                     me.INDEX = index;
-                    //localStorage.removeItem('MIRAGE_HOME_INDEX');
-                    //localStorage.removeItem('MIRAGE_HOME_ID');
+                    localStorage.setItem('MIRAGE_HOME_INDEX',0);
+                    localStorage.setItem('MIRAGE_HOME_ID',"");
                 }
             }
             me.bindEvent();
@@ -175,12 +175,11 @@ HomePage.prototype = {
         var lastTime = null;
         $(window).bind('mousewheel', function(e){
             var time = new Date();
-            if(lastTime && time-lastTime < 200){
+            if(lastTime && time-lastTime < 500){
                 return false;
             }
             lastTime = time;
             var direct = scrollFunc(e);
-            console.log(direct)
             if(direct < 0){
                 me.nextClick();
             }else if(direct > 0){
