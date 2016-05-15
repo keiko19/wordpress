@@ -43,18 +43,18 @@
                     </div>
                 </div>
                 <div class="list">
-                    <p>ABOUT</p>
-                    <p>LINKS</p>
+                    <p><a href="">ABOUT</a></p>
+                    <p><a href="">LINKS</a></p>
                 </div>
                 <div class="olds">
-                    <p><a href=""></a></p>
-                    <p></p>
+                    <p><a href="">OLD Miragetrip</a></p>
+                    <p><a href="">(2006-2012)</a></p>
                 </div>
                 <div class="we_chat">
                     <div class="twoCode"></div>
-                    <p></p>
-                    <p></p>
-                    <p></p>
+                    <p>0.9(ALPHA)</p>
+                    <p>Designed by Evacuee/Coded by ESSE/Powerd by Wordptess</p>
+                    <p>© 2005-2016 miragetrip.com. ALL RIGHTS RESERVED.</p>
                 </div>
             </div>
         </div>
