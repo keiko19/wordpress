@@ -161,7 +161,7 @@ HomePage.prototype = {
     },
     scrollToTarget : function(index){
         var current = this.animateDiv.find('.item[data-index="'+index+'"]');
-        if(!current){
+        if(!current || current.length == 0){
             return false;
         }
         var _x = -this.getTranslateX(this.animateDiv)+current.offset().left -100;
