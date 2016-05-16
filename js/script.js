@@ -273,7 +273,7 @@ HomePage.prototype = {
         });
 
         $('.mylogo').bind('click', function(){
-            me.e.INDEX = 0;
+            me.INDEX = 0;
             me.scrollToTarget(me.INDEX);
             me.renderBtns();
         });
