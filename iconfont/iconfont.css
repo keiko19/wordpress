@@ -210,7 +210,7 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
     position:fixed;
     overflow:hidden;
     right:0;
-    width:280px;
+    width:240px;
     font-size:0.75em;
     padding-right: 20px;
 }
@@ -255,7 +255,7 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .main .right-social .prev-artical{background:url(../images/arrow_left.png) center center no-repeat;margin-right:30px}
 .main .right-social .next-artical{background:url(../images/arrow_next.png) center center no-repeat;}
 
-.artical{margin-right:340px;}
+.artical{margin-right:300px;}
 .artical::-webkit-scrollbar {
     width:0;
     height:0;
