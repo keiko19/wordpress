@@ -265,6 +265,11 @@ HomePage.prototype = {
              window.location.href = link;
         });
 
+        $('.mylogo').bind('click', function(){
+            me.e.INDEX = 0;
+            me.scrollToTarget(me.INDEX);
+            me.renderBtns();
+        });
 
     }
 };
