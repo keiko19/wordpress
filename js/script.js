@@ -62,8 +62,12 @@ HomePage.prototype = {
                     if( index >0 && me.postResult[index] && me.postResult[index]["id"]==id){
                         me.scrollToTarget(index);
                         me.INDEX = index;
-                        localStorage.setItem('MIRAGE_HOME_INDEX',0);
-                        localStorage.setItem('MIRAGE_HOME_ID',"");
+                        try{
+                            localStorage.setItem('MIRAGE_HOME_INDEX',0);
+                            localStorage.setItem('MIRAGE_HOME_ID',"");
+                        }catch(e){
+
+                        }
                     }
                 }
                 me.bindEvent();
