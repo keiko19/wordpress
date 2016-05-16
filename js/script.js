@@ -260,8 +260,11 @@ HomePage.prototype = {
         me.animateDiv.delegate('.js-artical','click', function(){
              var link = $(this).attr("data-link");
              var id = $(this).attr("data-id");
-             localStorage.setItem('MIRAGE_HOME_INDEX',me.INDEX);
-             localStorage.setItem('MIRAGE_HOME_ID',id);
+            try{ //safri无痕模式 bug
+                localStorage.setItem('MIRAGE_HOME_INDEX',me.INDEX);
+                localStorage.setItem('MIRAGE_HOME_ID',id);
+            }catch(e){}
+
              window.location.href = link;
         });
 
