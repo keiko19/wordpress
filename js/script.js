@@ -310,6 +310,7 @@ ArticalPage.prototype = {
                     '{{/if}}',
                 '</div>',
                 '<div class="comment-post">',
+                    '<div class="comment-load-mask"><span>WATING</span></div>',
                     '<div class="comment-post-wrapper">',
                     '<form>',
                         '<div><textarea class="js-post-name" placeholder="YOUR NAME"></textarea></div>',
@@ -385,24 +386,35 @@ ArticalPage.prototype = {
         if (!_name || !_content) {
             return false;
         }else{
+            var loadingDom = $('.comment-load-mask');
+            loadingDom.show();
             fetchData({
                 type: "POST",
                 url: "/api/respond/submit_comment/",
                 data: {post_id:me.id, email:"",parent:_aid, name:_name, url:"", content:_content},
                 timeout: 30000
             }).done(function(_d){
+                loadingDom.hide();
+                me.resetComment();
                 if (_d.status=="ok") { //写一条新评论
                     var tpl = template(me.commentTpl, _d);
                     $(".comments-list").prepend(tpl);
-
-                    //tips('loading','hide');
                     return false;
                 } else {
                     //tips('tips', 'show', '评论提交失败，请刷新或稍后重试！');
                     return false;
                 }
+            }).fail(function(){
+                loadingDom.hide();
+                me.resetComment();
             });
         }
+    },
+    resetComment : function(){
+        var postText = $('.js-post-text');
+        postText.val('');
+        postText.attr({'data-id':'',"data-user":''});
+        $(".js-post-name").val('');
     },
     bindEvent : function(){
         var me = this;

@@ -173,9 +173,9 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .bottom .info{float:left;text-align:left;}
 .bottom .info .title{margin-bottom:10px;font-size:20px;}
 .bottom .info .title a{color:#000;font-size:20px;}
-.bottom .info .time{display:inline-block;font-size:12px;border-radius:3px;border:1px solid #424242;overflow:hidden;}
-.bottom .info .time .date{float:right;color:#424242;font-size:12px;padding:4px 4px;}
-.bottom .info .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:12px;}
+.bottom .info .time{display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;}
+.bottom .info .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
+.bottom .info .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:1em;font-weight: bold;}
 
 .thunm{position:absolute;z-index:9999;height:100%;width:100%;left:0;top:0;display:none;}
 .thunm .main-mask{opacity:0.3;width:100%;height:100%;background-color:#000;}
@@ -221,6 +221,28 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .right-box .comment-post{
     -webkit-flex-basis : 164px;
     flex-basis : 164px;
+    position:relative;
+}
+.right-box .comment-post .comment-load-mask{
+    position: absolute;
+    display:none;
+    z-index: 5;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    opacity: 0.8;
+}
+.right-box .comment-post .comment-load-mask span{
+    padding-left: 30px;
+    background: url(http://www.miragetrip.com/wp-content/themes/type16/images/loading2.gif) 0 0 no-repeat;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 .right-box .comments{
     flex : 1;
@@ -247,7 +269,7 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .main .artical-top .cats .classify{padding-left: 10px;font-size:12px;color: #999;}
 .main .artical-top .time{float:left;display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;}
 .main .artical-top .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
-.main .artical-top .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:0.8em;}
+.main .artical-top .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:1em;font-weight: bold;}
 .main .artical-top .artical-info{float:left;padding-left:15px;line-height: 24px;font-size: 22px;}
 .main  .right-social{float:right;padding-top:20px;}
 .main .right-social .share{color:#666;}
