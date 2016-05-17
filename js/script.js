@@ -50,8 +50,7 @@ HomePage.prototype = {
         var recentPost = fetchData({
             url : me.url,
             data : {page:me.page,count:count}
-        });
-        recentPost.then(function(result){
+        }).done(function(result){
             loading.fadeOut(800,function(){
                 $('.homepage_body').show();
                 if (result.posts && result.posts.length != 0) {
@@ -79,7 +78,7 @@ HomePage.prototype = {
         fetchData({
             url : me.url,
             data : $.extend( {page:me.page,count:me.count}, me.params )
-        }).then(function(result){
+        }).done(function(result){
             if (result.posts && result.posts.length != 0) {
                 var start = me.postResult.length;
                 if(result.pages == me.page){
@@ -189,7 +188,7 @@ HomePage.prototype = {
         fetchData({
             url : '?json=get_search_results',
             data : {page:me.page,count:me.count,search:decodeURIComponent(search)}
-        }).then(function(result){
+        }).done(function(result){
             loading_tips.css("visibility","hidden");
             me.animateDiv.html();
             me.translates( me.animateDiv, 200, 0);
@@ -345,8 +344,7 @@ ArticalPage.prototype = {
         this.slug = opt.slug;
         var recentPost = fetchData({
             url : "?json=get_post&slug="+me.slug
-        });
-        recentPost.then(function(result){
+        }).done(function(result){
             loading.fadeOut(800,function(){
                 if(result && result.post){
                     me.id=result.post.id;
@@ -392,7 +390,7 @@ ArticalPage.prototype = {
                 url: "/api/respond/submit_comment/",
                 data: {post_id:me.id, email:"",parent:_aid, name:_name, url:"", content:_content},
                 timeout: 30000
-            }).then(function(_d){
+            }).done(function(_d){
                 if (_d.status=="ok") { //写一条新评论
                     var tpl = template(me.commentTpl, _d);
                     $(".comments-list").prepend(tpl);
@@ -449,18 +447,12 @@ function initPage(){
 
 function fetchData(json){
     //获取文章信息
-    return new Promise(function(resolve,reject){
-        $.ajax({
-            type: json.type || 'GET',
-            dataType: json.dataType || "json",
-            url: json.url,
-            data : json.data,
-            timeout: json.timeout || 30000
-        }).done(function (data) {
-            resolve(data);
-        }).error(function (err) {
-            //reject(err);
-        });
+    return $.ajax({
+        type: json.type || 'GET',
+        dataType: json.dataType || "json",
+        url: json.url,
+        data : json.data,
+        timeout: json.timeout || 30000
     });
 }
 
