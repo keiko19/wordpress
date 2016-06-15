@@ -278,7 +278,16 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .main .right-social .prev-artical,.main .right-social .next-artical{display:inline-block;height:12px;width:8px;}
 .main .right-social .prev-artical{background:url(../images/arrow_left.png) center center no-repeat;margin-right:30px}
 .main .right-social .next-artical{background:url(../images/arrow_next.png) center center no-repeat;}
-
+.main .right-social .next-txt{
+    display: none;
+    vertical-align: top;
+    padding-right: 5px;
+}
+.main .right-social .prev-txt{
+    display: none;
+    vertical-align: top;
+    padding-left: 5px;
+}
 .artical{margin-right:300px;}
 .artical::-webkit-scrollbar {
     width:0;
@@ -408,10 +417,18 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 @media screen and (max-width: 800px) { /*当屏幕尺寸小于600px时，应用下面的CSS样式*/
     .artical{margin-right: 10px;}
+    .main{margin-left:10px;}
+    .back{display:none;}
     .right-box{
-        flex-direction: column-reverse;
+        position:static;
         margin-right: 10px;
+        height:auto;
         width: auto;
         overflow: inherit;
     }
+    .main .right-social .next-txt{display:inline-block;}
+    .main .right-social .prev-txt{display:inline-block;margin-right:20px;}
+    .main .right-social .prev-artical{margin-right:0;}
+    .main .right-social{float: none;text-align:center;}
+    .right-box{padding-right:0;}
 }
