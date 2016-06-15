@@ -174,8 +174,8 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .bottom .info .title{margin-bottom:10px;font-size:20px;}
 .bottom .info .title a{color:#000;font-size:20px;}
 .bottom .info .time{display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;}
-.bottom .info .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
-.bottom .info .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:1em;font-weight: bold;}
+.bottom .info .time .date{float:right;color:#424242;font-size:0.8em;padding:2px 4px;}
+.bottom .info .time .year{background-color:#424242;padding:2px 4px;float:left;color:#fff;font-size:0.8em;font-weight: bold;}
 
 .thunm{position:absolute;z-index:9999;height:100%;width:100%;left:0;top:0;display:none;}
 .thunm .main-mask{opacity:0.3;width:100%;height:100%;background-color:#000;}
@@ -265,11 +265,12 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 
 .main{margin-left:100px;overflow-x:hidden;height:100%;}
 .main .artical-top{overflow:hidden;padding:20px 0;height: 40px;}
-.main .artical-top .cats{float: right;}
+.main .artical-top .cats{float: right;    text-transform: uppercase;
+    margin-top: 2px;}
 .main .artical-top .cats .classify{padding-left: 10px;font-size:12px;color: #999;}
-.main .artical-top .time{float:left;display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;}
-.main .artical-top .time .date{float:right;color:#424242;font-size:0.8em;padding:4px 4px;}
-.main .artical-top .time .year{background-color:#424242;padding:4px 4px;float:left;color:#fff;font-size:1em;font-weight: bold;}
+.main .artical-top .time{float:left;display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;margin-top: 2px;}
+.main .artical-top .time .date{float:right;color:#424242;font-size:0.8em;padding:2px 4px;}
+.main .artical-top .time .year{background-color:#424242;padding:2px 4px;float:left;color:#fff;font-size:0.8em;font-weight: bold;}
 .main .artical-top .artical-info{float:left;padding-left:15px;line-height: 24px;font-size: 22px;}
 .main  .right-social{float:right;padding-top:20px;}
 .main .right-social .share{color:#666;}
