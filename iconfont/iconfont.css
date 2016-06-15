@@ -405,7 +405,7 @@ only screen and (min-device-pixel-ratio: 2) {
     .comment-post .comment-submit .post-comment{background:url(../images/button_post@2x.png) center center no-repeat;background-size:100%;}
     .loading .master .master-img{background: url(../images/logo@2x.png) center bottom no-repeat;background-size:100%;}
 }
-@media screen and (max-width: 600px) { /*当屏幕尺寸小于600px时，应用下面的CSS样式*/
+@media screen and (max-width: 800px) { /*当屏幕尺寸小于600px时，应用下面的CSS样式*/
     .artical{margin-right: 10px;}
     .right-box{
         margin-right: 10px;
