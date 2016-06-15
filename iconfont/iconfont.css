@@ -265,14 +265,14 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .back:hover .btn{right:70px;}
 
 .main{margin-left:100px;overflow-x:hidden;height:100%;}
-.main .artical-top{overflow:hidden;padding:20px 0;height: 40px;}
+.main .artical-top{overflow:hidden;padding:20px 0;height: 50px;}
 .main .artical-top .cats{float: right;    text-transform: uppercase;
     margin-top: 2px;}
 .main .artical-top .cats .classify{padding-left: 10px;font-size:12px;color: #999;}
 .main .artical-top .time{float:left;display:inline-block;font-size:0.8em;border-radius:3px;border:1px solid #424242;overflow:hidden;margin-top: 2px;}
 .main .artical-top .time .date{float:right;color:#424242;font-size:0.8em;padding:2px 4px;}
 .main .artical-top .time .year{background-color:#424242;padding:2px 4px;float:left;color:#fff;font-size:0.8em;font-weight: bold;}
-.main .artical-top .artical-info{float:left;padding-left:15px;line-height: 24px;font-size: 22px;}
+.main .artical-top .artical-info{margin-bottom:6px;line-height: 24px;font-size: 22px;}
 .main  .right-social{float:right;padding-top:20px;}
 .main .right-social .share{color:#666;}
 .main .right-social .prev-artical,.main .right-social .next-artical{display:inline-block;height:12px;width:8px;}
