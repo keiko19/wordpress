@@ -43,11 +43,11 @@ small {font-size: 14px;}/*small元素的大小是默认大小的0.875倍，即14
 img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot'); /* IE9*/
-  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1466000392'); /* IE9*/
+  src: url('iconfont.eot?t=1466000392#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1466000392') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1466000392') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1466000392#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -57,6 +57,7 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-icon:before { content: "\e608"; }
 .icon-sousuo:before { content: "\e600"; }
 .icon-fenxiang:before { content: "\e601"; }
 .icon-youjianhuifu:before { content: "\e602"; }
@@ -280,13 +281,23 @@ img { max-width: 100%;height: inherit;}/*图片的自适应（fluid image）*/
 .main .right-social .next-artical{background:url(../images/arrow_next.png) center center no-repeat;}
 .main .right-social .next-txt{
     display: none;
+    color:#666;
     vertical-align: top;
+    margin-left:20px;
     padding-right: 5px;
 }
 .main .right-social .prev-txt{
     display: none;
+    color:#666;
     vertical-align: top;
     padding-left: 5px;
+}
+.main .right-social .home_phone{
+    display:none;   
+    vertical-align: top;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 0 15px;
 }
 .artical{margin-right:300px;}
 .artical::-webkit-scrollbar {
@@ -429,6 +440,7 @@ only screen and (min-device-pixel-ratio: 2) {
     .main .right-social .next-txt{display:inline-block;}
     .main .right-social .prev-txt{display:inline-block;margin-right:20px;}
     .main .right-social .prev-artical{margin-right:0;}
+    .main .right-social .home_phone{display:inline-block}
     .main .right-social{float: none;text-align:center;}
     .right-box{padding-right:0;}
 }
